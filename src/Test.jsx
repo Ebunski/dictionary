@@ -1,32 +1,23 @@
-import React, { useState } from "react";
-import axios from "axios";
-
-const apiUrl = "https://api.datamuse.com/sug";
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { setSearch } from '/src/store/appSlice';
+import Suggestions from '/src/Test/SuggestionList';
+import { fetchWordSuggestions } from '/src/utils/api';
 
 const App = () => {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [suggestions, setSuggestions] = useState([]);
-
-  const fetchWordSuggestions = async (term) => {
-    try {
-      const response = await axios.get(`${apiUrl}?s=${term}`);
-      const suggestions = response.data.map((item) => item.word);
-      setSuggestions(suggestions);
-    } catch (error) {
-      console.error("Error fetching word suggestions:", error);
-      setSuggestions([]);
-    }
-  };
+  const searchTerm = useSelector((state) => state.app.search);
+  const dispatch = useDispatch();
 
   const handleInputChange = (event) => {
     const userInput = event.target.value;
-    setSearchTerm(userInput);
+    dispatch(setSearch(userInput));
 
-    // Fetch word suggestions when the user types
-    if (userInput.trim() !== "") {
-      fetchWordSuggestions(userInput);
+    if (userInput.trim() !== '') {
+      fetchWordSuggestions(userInput).then((suggestions) => {
+        // Handle suggestions, e.g., dispatch setSuggestions action
+      });
     } else {
-      setSuggestions([]);
+      // Dispatch setSuggestions action with an empty array
     }
   };
 
@@ -39,11 +30,7 @@ const App = () => {
         onChange={handleInputChange}
         placeholder="Search for a word..."
       />
-      <ul>
-        {suggestions.map((suggestion, index) => (
-          <li key={index}>{suggestion}</li>
-        ))}
-      </ul>
+      <SuggestionList /> {/* Render the suggestion list */}
       {/* Rest of your app */}
     </div>
   );

@@ -7,7 +7,6 @@ const appSlice = createSlice({
   initialState: {
     search : '',
     suggestions: [],
-    selectedWord: null,
     data: [],
     message : "",
     isPlaying: false,
@@ -19,11 +18,11 @@ const appSlice = createSlice({
     setSuggestions(){
       state.suggestions = getSuggestions(action.payload)
     },
-    setSelectedWord(state, action) {
-      state.selectedWord = action.payload;
+    
+    setData(state, action) {
+      state.data = action.payload;
     },
     handlesubmit(){},
-    getData(){},
     setMessage(){},
     setIsPlaying(){},
     
@@ -32,4 +31,4 @@ const appSlice = createSlice({
 })
 
 export default appSlice.reducer;
-export const {setSearch,setSelectedWord,setSubmit, handleSubmit,getData,setMessage,setIsPlaying}= appSlice.actions
+export const {setSearch,setSuggestions, handleSubmit,setData,setMessage,setIsPlaying}= appSlice.actions
