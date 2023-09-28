@@ -263,3 +263,31 @@ input:checked + .slider:before {
   }
 }
 
+
+
+
+/* =============CUSTOM================= */
+
+.font-inconsolata {
+  font-family: 'Inconsolata', monospace;
+}
+.font-lora {
+  font-family: 'Lora', serif;
+}
+.font-inter {
+  font-family: 'Inter', sans-serif;
+}
+.play-button {
+  box-sizing: border-box;
+  
+  border-width: 1rem 0px 1rem 1.5rem;
+  border-color: transparent transparent transparent #9e35e9;
+}
+@media (max-width: 1060px) {
+  .play-button {
+    box-sizing: border-box;
+  border-width: .5rem 0px .5rem .8rem;
+  border-color: transparent transparent transparent #9e35e9;
+  }
+}
+
