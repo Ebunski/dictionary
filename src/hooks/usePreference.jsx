@@ -20,7 +20,7 @@ function usePreference() {
     };
   }, []);
 
-  return [setPreferredColorScheme, setPreferredColorScheme]
+  return [preferredColorScheme, setPreferredColorScheme]
 }
 
-export default Preference;
+export default usePreference;

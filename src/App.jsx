@@ -1,12 +1,13 @@
+import React from "react";
+import Test from "./Test"
 
-const App = () => {
+function App() {
   return (
-  
-    <section className = "grid place-items-center h-screen">
-       <h1> Fresh blank project <strong className = "font-bold"> winks </strong>
-       </h1>
-    </section>
+    <div className="App">
+      <h1> running </h1>
+      <Test />
+    </div>
   );
-};
+}
 
 export default App;
