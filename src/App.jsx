@@ -1,4 +1,4 @@
-import Meaning from "./components/Meaning";
+import Meanings from "./components/Meanings";
 import Nav from "./components/Nav";
 import SearchBar from "./components/SearchBar";
 import Word from "./components/Word";
@@ -9,7 +9,7 @@ const App = () => {
         <Nav />
         <SearchBar />
         <Word />
-        <Meaning />
+        <Meanings />
       </div>
     </div>
   );

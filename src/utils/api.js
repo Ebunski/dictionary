@@ -1,13 +1,40 @@
-import axios from 'axios';
+import axios from "axios";
+import { createAsyncThunk } from "@reduxjs/toolkit";
+import { setSuggestions, setData } from "/src/store/appSlice";
 
-const sugApiUrl = 'https://api.datamuse.com/sug';
+const sugApiUrl = "https://api.datamuse.com/sug";
+const dictionaryApiUrl = "https://api.dictionaryapi.dev/api/v2/entries/en/";
 
-export const fetchWordSuggestions = async (term) => {
+//Method 1.
+//function currying" or "function composition
+//The outer function is called with the term parameter when you dispatch fetchWordSuggestionsAsync(term).
+//The inner function (dispatch) => { ... } is returned from the outer function and receives the dispatch function. It's the actual thunk function that contains the asynchronous logic,
+
+export const fetchWordSuggestions = (term) => async (dispatch) => {
   try {
     const response = await axios.get(`${sugApiUrl}?s=${term}`);
-    return response.data.map((item) => item.word);
+    // console.log(response.data);
+    dispatch(setSuggestions(response.data));
   } catch (error) {
-    console.error('Error fetching word suggestions:', error);
-    return [];
+    console.error("Error fetching word suggestions:", error);
+    dispatch(setSuggestions([]));
   }
 };
+
+//Method 2:
+//Import your Redux store where it's created.
+//Modify your fetch functions to accept an additional dispatch argument.
+//When you call these utility functions, pass the dispatch function from your Redux store as an argument using store.dispatch or useDispatch for react components.
+
+//Method 3
+//use createAsyncThunk(sliceName/thunkName,req callback).
+//use extraReducer: (builder) => {}
+//addCase(condition, reducer_callback)
+
+export const fetchMeaning = createAsyncThunk(
+  "app/fetchMeaning",
+  async (term) => {
+    const response = await axios.get(`${dictionaryApiUrl}${term}`);
+    return response.data;
+  }
+);
