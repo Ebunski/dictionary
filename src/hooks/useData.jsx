@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 export default function useData() {
   const response = useSelector((state) => state.app.data);
 
+
   const data = response ? response[0] :[];
   const word = data?.word;
   const meaningsArr = data?.meanings;

@@ -15,9 +15,7 @@ const appSlice = createSlice({
     isPlaying: false,
   },
   reducers: {
-    setFont(state, action) {
-      state.font = action.payload;
-    },
+    
     setSearch(state, action) {
       state.search = action.payload;
     },
@@ -56,7 +54,7 @@ const appSlice = createSlice({
 
 export default appSlice.reducer;
 export const {
-  setFont,
+  
   setSearch,
   setIsLoading,
   setSuggestions,
