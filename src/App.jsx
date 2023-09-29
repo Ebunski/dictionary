@@ -1,4 +1,4 @@
-import {useSelector} from 'react-redux';
+import { useSelector } from "react-redux";
 import Meanings from "./components/Meanings";
 import Nav from "./components/Nav";
 import SearchBar from "./components/SearchBar";

@@ -20,9 +20,9 @@ export default function Meaning({
       <div className="text-[#84849a] py-6">Meaning</div>
       <ul className={`list-disc list-dark-mode pl-5`}>
         {definitions.map((x, index) => (
-          <li key={index} className="">
-            <div className="pb-2">{x.definition}</div>
-            <div className="pt-2 text-[#84849a]">{x.example}</div>
+          <li key={index} className="pb-4">
+            <div className="pb-1">{x.definition}</div>
+            <div className="text-[#84849a]">{x.example}</div>
           </li>
         ))}
       </ul>
@@ -30,8 +30,6 @@ export default function Meaning({
       <div className="extras py-3">
         <Extra title="Synonyms" arr={synonyms} />
         <Extra title="Antonyms" arr={antonyms} />
-
-        
       </div>
     </div>
   );
