@@ -4,11 +4,14 @@ export const userSlice = createSlice({
   name: "user",
   initialState: {
     darkMode: false,
-    font: "sans-serif",
+    font: {
+      name: "sans-serif",
+      style: "font-sans",
+    },
   },
   reducers: {
-    setFont(state, action) {
-      state.font = action.payload;
+    setFont(state, { payload }) {
+      state.font = { name: payload.name, style: payload.style };
     },
     toggleTheme: (state) => {
       state.darkMode = !state.darkMode;
