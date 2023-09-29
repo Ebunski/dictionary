@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux";
 import useSearchLogic from "/src/hooks/useSearchLogic";
 import { XCircle as X } from "react-feather";
+import SuggestionsList from "./Suggestions";
 
 
 function SearchBar() {
@@ -13,7 +14,7 @@ function SearchBar() {
   return (
     <div className={`search-bar rounded-md my-2 md:my-6 p-4   ${mode.input}`}>
       <form
-        className="flex items-center gap-4"
+        className="relative flex items-center gap-4"
         onSubmit={(e) => handleFormSubmit(e)}
       >
         <input
@@ -34,6 +35,7 @@ function SearchBar() {
         <button aria-label="submit" role="search">
           <img src="./assets/search.svg" alt="Search " />
         </button>
+        <SuggestionsList />
       </form>
     </div>
   );

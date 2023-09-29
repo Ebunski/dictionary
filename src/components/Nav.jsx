@@ -9,7 +9,6 @@ function Nav() {
   const purple = "hsl(275, 80%, 56%)";
   const purpleBg = "rgba(164,69,237,.25)";
   const {darkMode} = useSelector((state) => state.user)
-  // const [darkMode, setDarkMode] = useState(false);
   const togglePill = useRef();
   const toggleIcon = useRef();
   function handleThemeChange(e) {
