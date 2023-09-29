@@ -1,29 +1,40 @@
 import { useSelector } from "react-redux";
 import useSearchLogic from "/src/hooks/useSearchLogic";
-import usePlay from "/src/hooks/usePlay";
+import { XCircle as X } from "react-feather";
+
 
 function SearchBar() {
-  const { darkMode } = useSelector((st) => st.user);
-  const inputBg = darkMode ? "bg-[#1f1f1f]" : "bg-[#f4f4f4]";
-  const { searchTerm, handleInputChange, handleFormSubmit } = useSearchLogic();
-  const { handlePlay, isPlaying } = usePlay;
+  const {theme, darkMode} = useSelector((state) => state.user)
+  const mode = darkMode ? theme.dark : theme.light;
+  const { searchTerm, handleInputChange, handleFormSubmit, clear } =
+    useSearchLogic();
+  const purpleBg = "hsl(275, 80%, 56%)";
+
   return (
-    <div className={`search-bar rounded-md my-2 md:my-6 p-4 flex items-center gap-4 ${inputBg}`}>
-      <input
-        type="text"
-        name="search"
-        id="search"
-        className={`flex-1 ${inputBg} outline-none focus:outline-none`}
-        placeholder="Type to search"
-        value={searchTerm}
-        onChange={(e) => handleInputChange(e)}
-      />
-      <div onClick={(e) => handleFormSubmit(e)}>
-        <audio>
-          {" "}
-          <img src="./assets/search.svg" alt="Search icon" />
-        </audio>
-      </div>
+    <div className={`search-bar rounded-md my-2 md:my-6 p-4   ${mode.input}`}>
+      <form
+        className="flex items-center gap-4"
+        onSubmit={(e) => handleFormSubmit(e)}
+      >
+        <input
+          type="text"
+          name="search"
+          id="search"
+          className={`flex-1 ${mode.input} outline-none focus:outline-none`}
+          placeholder="Type to search"
+          value={searchTerm}
+          onChange={(e) => handleInputChange(e)}
+        />
+        {searchTerm && (
+          <span className="pl-4" onClick={() => clear()}>
+            {" "}
+            <X size={24} color={purpleBg} />{" "}
+          </span>
+        )}
+        <button aria-label="submit" role="search">
+          <img src="./assets/search.svg" alt="Search " />
+        </button>
+      </form>
     </div>
   );
 }

@@ -277,16 +277,24 @@ input:checked + .slider:before {
 .font-inter {
   font-family: 'Inter', sans-serif;
 }
-.play-button {
-  box-sizing: border-box;
-  border-width: 1rem 0px 1rem 1.5rem;
-  border-color: transparent transparent transparent #9e35e9;
-}
-@media (max-width: 1060px) {
-  .play-button {
-    box-sizing: border-box;
-  border-width: .5rem 0px .5rem .8rem;
-  border-color: transparent transparent transparent #9e35e9;
-  }
-}
 
+* {
+  transition-property: background, color;
+  transition-duration: .3s;
+  transition-timing-function: ease-out;
+}
+ .list-dark-mode {
+  list-style: none;
+ }
+ .list-dark-mode li {
+  position: relative;
+ }
+ .list-dark-mode li:before {
+  content: "\2022";
+  color: hsl(275, 80%, 56%);
+  font-weight: bold;
+  display: inline-block;
+  position: absolute;
+  width: 1rem;
+  margin-left: -1rem;
+ }

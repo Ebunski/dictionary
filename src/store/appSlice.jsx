@@ -5,6 +5,7 @@ import welcome from "/src/utils/welcome";
 const appSlice = createSlice({
   name: "app",
   initialState: {
+    font: "sans-serif",
     search: "",
     suggestions: [],
     data: welcome,
@@ -14,6 +15,7 @@ const appSlice = createSlice({
     isPlaying: false,
   },
   reducers: {
+    
     setSearch(state, action) {
       state.search = action.payload;
     },
@@ -51,5 +53,12 @@ const appSlice = createSlice({
 });
 
 export default appSlice.reducer;
-export const { setSearch, setIsLoading,setSuggestions, setData, setMessage, setIsPlaying } =
-  appSlice.actions;
+export const {
+  
+  setSearch,
+  setIsLoading,
+  setSuggestions,
+  setData,
+  setMessage,
+  setIsPlaying,
+} = appSlice.actions;

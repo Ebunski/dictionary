@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {toggleTheme} from '../store/userSlice'
 import { TweenMax } from "gsap/gsap-core";
+import Fonts from "./Fonts";
 function Nav() {
   const dispatch = useDispatch();
   const purple = "hsl(275, 80%, 56%)";
@@ -14,6 +15,7 @@ function Nav() {
     let el = e.target;
     dispatch(toggleTheme())
   }
+
   useEffect(() => {
     if (!darkMode) {
       TweenMax.to(toggleIcon.current, 0.3, { background: "gray" });
@@ -24,19 +26,20 @@ function Nav() {
     }
   }, [darkMode]);
 
-  useEffect(() => console.log(darkMode), [darkMode])
+
   return (
     <nav className="flex items-center justify-between py-8 md:py-[3rem]">
       <img src="./assets/dictionary-logo.svg" alt="Book" />
       <div className="options flex gap-4 items-center">
         <div className="font-select flex items-center gap-4 px-6 border-e-[1px] border-e-[#e9e9e9]">
-          <div>Serif</div>
+          <Fonts />
           <div className="w-8">
             <img src="./assets/expand_more.png" alt="Expand More" />
           </div>
         </div>
         <div className="flex gap-4 items-center">
           <div
+
             ref={toggleIcon}
             onClick={handleThemeChange}
             htmlFor="love"

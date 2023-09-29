@@ -19,6 +19,9 @@ export default function useSearchLogic() {
     }
   };
 
+  function clear() {
+    dispatch(setSearch(""));
+  }
   //function to set input to selected suggestion and search
   const handleSuggestionClick = (suggestion) => {
     dispatch(setSearch(suggestion));
@@ -28,7 +31,6 @@ export default function useSearchLogic() {
   const handleFormSubmit = (event) => {
     event.preventDefault();
     dispatch(fetchMeaning(searchTerm));
-    
   };
   return {
     handleInputChange,
@@ -36,5 +38,6 @@ export default function useSearchLogic() {
     handleFormSubmit,
     suggestions,
     searchTerm,
+    clear,
   };
 }

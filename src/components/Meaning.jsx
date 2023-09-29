@@ -1,11 +1,15 @@
+import { useEffect } from "react";
 import Extra from "./Extra";
-
+import {useSelector} from 'react-redux'
 export default function Meaning({
   partOfSpeech,
   definitions,
   antonyms,
   synonyms,
 }) {
+  const {darkMode} = useSelector((st) => st.user)
+  useEffect(() => console.log(darkMode), [darkMode])
+
   return (
     <div className="noun py-6">
       <div className="title flex gap-4 items-center">
@@ -14,7 +18,7 @@ export default function Meaning({
       </div>
 
       <div className="text-[#84849a] py-6">Meaning</div>
-      <ul className="list-disc pl-5">
+      <ul className={`list-disc list-dark-mode pl-5`}>
         {definitions.map((x, index) => (
           <li key={index} className="">
             <div className="pb-2">{x.definition}</div>
