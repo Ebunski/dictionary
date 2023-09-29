@@ -1,13 +1,17 @@
+import { useSelector } from "react-redux";
 import useSearchLogic from "/src/hooks/useSearchLogic";
 import { XCircle as X } from "react-feather";
 
+
 function SearchBar() {
+  const {theme, darkMode} = useSelector((state) => state.user)
+  const mode = darkMode ? theme.dark : theme.light;
   const { searchTerm, handleInputChange, handleFormSubmit, clear } =
     useSearchLogic();
   const purpleBg = "hsl(275, 80%, 56%)";
 
   return (
-    <div className="search-bar rounded-md my-2 md:my-6 p-4   bg-[#f4f4f4]">
+    <div className={`search-bar rounded-md my-2 md:my-6 p-4   ${mode.input}`}>
       <form
         className="flex items-center gap-4"
         onSubmit={(e) => handleFormSubmit(e)}
@@ -16,7 +20,7 @@ function SearchBar() {
           type="text"
           name="search"
           id="search"
-          className="flex-1 bg-[#f4f4f4] outline-none focus:outline-none"
+          className={`flex-1 ${mode.input} outline-none focus:outline-none`}
           placeholder="Type to search"
           value={searchTerm}
           onChange={(e) => handleInputChange(e)}

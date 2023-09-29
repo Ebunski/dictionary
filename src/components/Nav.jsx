@@ -26,7 +26,6 @@ function Nav() {
     }
   }, [darkMode]);
 
-  useEffect(() => console.log(darkMode), [darkMode])
 
   return (
     <nav className="flex items-center justify-between py-8 md:py-[3rem]">
