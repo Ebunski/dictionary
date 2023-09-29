@@ -2,12 +2,14 @@ import useSearchLogic from "/src/hooks/useSearchLogic";
 
 const SuggestionsList = () => {
   const { handleSuggestionClick, suggestions } = useSearchLogic();
+  if (suggestions.length === 0) return;
+
 
   return (
     <ul>
-      {suggestions.map((suggestion, index) => (
+      {suggestions?.map((suggestion, index) => (
         <li key={index} onClick={() => handleSuggestionClick(suggestion)}>
-          {suggestion}
+          {suggestion.word}
         </li>
       ))}
     </ul>

@@ -24,9 +24,9 @@ export default function Fonts() {
     dispatch(setFont(item));
   }
   return (
-    <div className="relative font-select flex items-center gap-4 px-6 border-e-[1px] border-e-[#e9e9e9]">
+    <div className="relative font-select flex items-center gap-4 px-6 border-e-[1px] border-e-[#e9e9e9] flex w-10">
       <span> {font.name} </span>
-      <ul className="absolute top-[100%] background- gray w-30">
+      <ul className="absolute top-[100%] background- gray flex flex-col items-center">
         {fontsList.map((x, index) => (
           <li
             key={index}
