@@ -1,27 +1,13 @@
-
-
-
-import Suggestions from '/src/Test/SuggestionList';
-
-
-const App = () => {
-  
-
-  
-
-  return (
-    <div>
-      <h1>Dictionary App</h1>
-      <input
-        type="text"
-        value={searchTerm}
-        onChange={handleInputChange}
-        placeholder="Search for a word..."
-      />
-      <SuggestionList /> {/* Render the suggestion list */}
-      {/* Rest of your app */}
-    </div>
-  );
-};
-
-export default App;
+onMouseEnter={(el) => gsapFunc(el, "white", purple)}
+      onMouseLeave={(el) => gsapFunc(el, purple, purpleBg)}
+      
+      
+      
+      function gsapFunc(el, fill, background) {
+    el = el.target;
+    TweenMax.to(el, 0.3, { background: background });
+    TweenMax.to(playButton.current, 0.3, {
+      background: "transparent",
+      fill: fill,
+    });
+  }
