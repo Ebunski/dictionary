@@ -27,7 +27,7 @@ Frontend Mentor challenges help you improve your coding skills by building reali
 [] user Preferences
 [] Switch between light and dark themes
 [x] Search for words using the input field
-[] Suggestions
+[x] Suggestions
 [x] See the Free Dictionary API's response for the searched word
 [ ] See a form validation message when trying to submit a blank form
 [ ] Play the audio file for a word when it's available
