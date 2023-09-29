@@ -1,32 +1,12 @@
-import { useDispatch, useSelector } from "react-redux";
-import { setFont } from "/src/store/userSlice";
-
-const fontsList = [
-  {
-    name: "serif",
-    style: "font-serif",
-  },
-  {
-    name: "sans-serif",
-    style: "font-sans",
-  },
-  {
-    name: "mono",
-    style: "font-mono",
-  },
-];
+import useFontLogic from "/src/hooks/useFontLogic";
 
 export default function Fonts() {
-  const font = useSelector((state) => state.user.font);
-  const dispatch = useDispatch();
-  function changeFont(i) {
-    const item = fontsList[i];
-    dispatch(setFont(item));
-  }
+const { font, expandRef ,fontsList,handleDropdown, toggleImageRotation,  changeFont} =
+    useFontLogic();
   return (
-    <div className="relative font-select flex items-center gap-4 px-6 border-e-[1px] border-e-[#e9e9e9] flex w-10">
+    <div className="relative flex  items-center justify-center  gap-4 border-red-[1px] border-e-[#e9e9e9] flex min-w-[10rem]">
       <span> {font.name} </span>
-      <ul className="absolute top-[100%] background- gray flex flex-col items-center">
+      <ul className="absolute top-[100%] bg-red-100 py-3 px-5">
         {fontsList.map((x, index) => (
           <li
             key={index}
@@ -38,7 +18,7 @@ export default function Fonts() {
           </li>
         ))}
       </ul>
-      <div className="w-8">
+      <div ref={expandRef} onClick={handleDropdown} className="w-8">
         <img src="./assets/expand_more.png" alt="Expand More" />
       </div>
     </div>
