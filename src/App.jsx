@@ -4,7 +4,6 @@ import Nav from "./components/Nav";
 import SearchBar from "./components/SearchBar";
 import Sug from "./components/Suggestions";
 import Word from "./components/Word";
-import SuggestionsList from "./components/Suggestions";
 const App = () => {
   const { darkMode } = useSelector((st) => st.user);
   const background = darkMode ? "bg-[#050505]" : "bg-[#ffffff]";
@@ -16,7 +15,6 @@ const App = () => {
       <div className="w-[95%] md:w-[60%]">
         <Nav />
         <SearchBar />
-        <Sug />
         <Word />
         <Meanings />
         <div className="hl flex-1 border-t-[1px] border-t-[#f4f4f4] mb-8"></div>
