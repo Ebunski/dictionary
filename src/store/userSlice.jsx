@@ -1,19 +1,19 @@
-import {createSlice} from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
-
-
-const userSlice = createSlice({
-  name: 'user',
+export const userSlice = createSlice({
+  name: "user",
   initialState: {
-    theme: 'light',
-    font: 'sans-serif'
+    darkMode: false,
+    font: "sans-serif",
   },
   reducers: {
-    setTheme(){},
-    setFont(){}
-  
-  }
-})
+    setTheme() {},
+    setFont() {},
+    toggleTheme: (state) => {
+      state.darkMode = !state.darkMode;
+    },
+  },
+});
 
 export default userSlice.reducer;
-export const {theme, font} = userSlice.actions
+export const { toggleTheme, setFont, setTheme } = userSlice.actions;

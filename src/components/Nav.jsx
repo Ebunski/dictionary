@@ -1,25 +1,30 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import {toggleTheme} from '../store/userSlice'
 import { TweenMax } from "gsap/gsap-core";
 function Nav() {
+  const dispatch = useDispatch();
   const purple = "hsl(275, 80%, 56%)";
   const purpleBg = "rgba(164,69,237,.25)";
-  const [darkMode, setDarkMode] = useState(false);
-  const themeCheckBox = useRef();
+  const {darkMode} = useSelector((state) => state.user)
+  // const [darkMode, setDarkMode] = useState(false);
   const togglePill = useRef();
   const toggleIcon = useRef();
   function handleThemeChange(e) {
     let el = e.target;
-    setDarkMode(!darkMode);
+    dispatch(toggleTheme())
   }
   useEffect(() => {
-    if(!darkMode) {
-      TweenMax.to(toggleIcon.current, 0.3, {background: 'gray'})
-      // themeCheckBox.target.checked = false;
-    }else {
-      TweenMax.to(toggleIcon.current, 0.3, {background: purple})
-      // themeCheckBox.target.checked = true;
+    if (!darkMode) {
+      TweenMax.to(toggleIcon.current, 0.3, { background: "gray" });
+      TweenMax.to(togglePill.current, 0.3, { left: "5%" });
+    } else {
+      TweenMax.to(toggleIcon.current, 0.3, { background: purple });
+      TweenMax.to(togglePill.current, 0.3, { left: "60%" });
     }
-  }, [darkMode])
+  }, [darkMode]);
+
+  useEffect(() => console.log(darkMode), [darkMode])
   return (
     <nav className="flex items-center justify-between py-8 md:py-[3rem]">
       <img src="./assets/dictionary-logo.svg" alt="Book" />
@@ -31,23 +36,17 @@ function Nav() {
           </div>
         </div>
         <div className="flex gap-4 items-center">
-          <label
-          ref={toggleIcon}
+          <div
+            ref={toggleIcon}
             onClick={handleThemeChange}
             htmlFor="love"
-            className="relative w-[3rem] h-[1.5rem] bg-[gray] rounded-[2rem] flex items-center p-1"
+            className="relative w-[3rem] h-[1.5rem] bg-[gray] rounded-[2rem]"
           >
-            <input
-              ref={themeCheckBox}
-              className="hidden"
-              type="checkbox"
-              id="love"
-            />
             <span
               ref={togglePill}
-              className="inline-block w-[1rem] h-[1rem] rounded-full bg-[white]"
+              className="absolute top-[50%] translate-y-[-50%] left-0 inline-block w-[1rem] h-[1rem] rounded-full bg-[white]"
             ></span>
-          </label>
+          </div>
           <button>
             <img src="./assets/moon.svg" alt="" />
           </button>
