@@ -12,7 +12,9 @@ function Nav() {
           </div>
         </div>
         <div className="flex gap-4 items-center">
-          <input type="checkbox" />
+          <label htmlFor="love" style={{ width: "10rem", background: "green" }}>
+            <input type="checkbox" id="love"/>
+          </label>
           <button>
             <img src="./assets/moon.svg" alt="" />
           </button>
