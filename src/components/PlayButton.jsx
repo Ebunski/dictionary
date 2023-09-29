@@ -24,7 +24,7 @@ export default function PlayButton() {
       onMouseEnter={(el) => gsapFunc(el, "white", purple)}
       onMouseLeave={(el) => gsapFunc(el, purple, purpleBg)}
       onClick={handlePlay}
-      className="relative rounded-[100%] h-[3rem] md:h-[4rem] w-[3rem] md:w-[4rem]  bg-purpleBg grid place-items-center"
+      className="play-ring relative rounded-[100%] h-[3rem] md:h-[4rem] w-[3rem] md:w-[4rem]  bg-purpleBg grid place-items-center"
     >
       <audio ref={audio} src={src} onEnded={handleAudioEnded}>
         {" "}

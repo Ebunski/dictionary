@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 export const userSlice = createSlice({
   name: "user",
   initialState: {
-    darkMode: false,
+    darkMode: window.matchMedia("(prefers-color-scheme:dark)").matches,
     font: "sans-serif",
     theme: {
       dark: {

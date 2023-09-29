@@ -13,7 +13,7 @@ const App = () => {
       <div className="w-[95%] md:w-[60%]">
         <Nav />
         <SearchBar />
-        <SuggestionsList />
+        {/* <SuggestionsList /> */}
         <Word />
         <Meanings />
         <div className="hl flex-1 border-t-[1px] border-t-[#f4f4f4] mb-8"></div>

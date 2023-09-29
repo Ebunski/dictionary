@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { Moon } from "react-feather";
 import {toggleTheme} from '../store/userSlice'
 import { TweenMax } from "gsap/gsap-core";
 import Fonts from "./Fonts";
@@ -47,9 +48,9 @@ function Nav() {
               className="absolute top-[50%] translate-y-[-50%] left-0 inline-block w-[1rem] h-[1rem] rounded-full bg-[white]"
             ></span>
           </div>
-          <button>
-            <img src="./assets/moon.svg" alt="" />
-          </button>
+          <div>
+            <Moon color={darkMode ? purple : 'gray'} />
+          </div>
         </div>
       </div>
     </nav>
