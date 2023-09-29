@@ -24,15 +24,15 @@ export default function Fonts() {
     dispatch(setFont(item));
   }
   return (
-    <div className="font-select flex items-center gap-4 px-6 border-e-[1px] border-e-[#e9e9e9]">
+    <div className="relative font-select flex items-center gap-4 px-6 border-e-[1px] border-e-[#e9e9e9]">
       <span> {font.name} </span>
-      <ul className="">
+      <ul className="absolute top-[100%] background- gray w-30">
         {fontsList.map((x, index) => (
           <li
             key={index}
             onClick={() => changeFont(index)}
             className={`font-normal
-            ${x.style} text-red`}
+            ${x.style} ${x.name === font.name && "text-[#743EB8]"}`}
           >
             {x.name}
           </li>
