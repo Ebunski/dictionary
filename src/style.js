@@ -17,7 +17,7 @@ const theme = {
         // Light background
         background: "bg-[#ffffff]",
         // Light Main text color
-        textMain: "text-[#2d2d2d]",
+        textMain: "text-[#2d2d2d]", 
         // Light input background
         input: "bg-[#f4f4f4]",
         // Light input placeholder text color
