@@ -279,7 +279,6 @@ input:checked + .slider:before {
 }
 .play-button {
   box-sizing: border-box;
-  
   border-width: 1rem 0px 1rem 1.5rem;
   border-color: transparent transparent transparent #9e35e9;
 }
