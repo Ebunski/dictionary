@@ -4,7 +4,7 @@ export const userSlice = createSlice({
   name: "user",
   initialState: {
     darkMode: window.matchMedia("(prefers-color-scheme:dark)").matches,
-    font: "sans-serif",
+    
     theme: {
       dark: {
         // Dark background
