@@ -4,7 +4,6 @@ export const userSlice = createSlice({
   name: "user",
   initialState: {
     darkMode: window.matchMedia("(prefers-color-scheme:dark)").matches,
-    
     theme: {
       dark: {
         // Dark background
@@ -39,6 +38,7 @@ export const userSlice = createSlice({
       name: "sans-serif",
       style: "font-sans",
     },
+    suggestionOpen: false,
   },
   reducers: {
     setFont(state, { payload }) {
@@ -47,8 +47,11 @@ export const userSlice = createSlice({
     toggleTheme: (state) => {
       state.darkMode = !state.darkMode;
     },
+    setSuggestionOpen: (state, actions) => {
+      state.suggestionOpen = actions.payload;
+    },
   },
 });
 
 export default userSlice.reducer;
-export const { toggleTheme, setFont } = userSlice.actions;
+export const { toggleTheme, setFont, setSuggestionOpen } = userSlice.actions;
