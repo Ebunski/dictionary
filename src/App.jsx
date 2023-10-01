@@ -1,12 +1,13 @@
-import { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import Meanings from "./components/Meanings";
 import Nav from "./components/Nav";
 import SearchBar from "./components/SearchBar";
-import Sug from "./components/Suggestions";
 import Word from "./components/Word";
-import {BeatLoader} from 'react-spinners'
+import { BeatLoader } from "react-spinners";
+import { setIsMobile } from "./store/appSlice";
 const App = () => {
+  const dispatch = useDispatch();
   const { darkMode, font } = useSelector((st) => st.user);
   const { isLoading } = useSelector((st) => st.app);
   const background = darkMode ? "bg-[#050505]" : "bg-[#ffffff]";
@@ -15,6 +16,15 @@ const App = () => {
     () => (isLoading ? console.log("Pending") : console.log("Not Pending")),
     [isLoading]
   );
+  const handleWindowResize = () => {
+    if (window.innerWidth <= 500) dispatch(setIsMobile(true));
+    else dispatch(setIsMobile(false));
+  };
+  useEffect(() => {
+    window.addEventListener("resize", () => handleWindowResize);
+    return () => window.removeEventListener("resize", handleWindowResize);
+  }, []);
+
   return (
     <div
       className={`App flex justify-center ${font.style} ${background} ${textMain}`}

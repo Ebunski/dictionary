@@ -1,28 +1,36 @@
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import usePlay from "/src/hooks/usePlay";
 import { TweenMax, Power3 } from "gsap";
 import { Pause, Play } from "react-feather";
 
 export default function PlayButton() {
+  const { isMobile } = useSelector((st) => st.app);
   const playButton = useRef();
+  const playRing = useRef();
+  const [playHovered, setPlayHovered] = useState(false);
   const audio = useRef();
   const { isPlaying, handlePlay, src, handleAudioEnded } = usePlay(audio);
   const purple = "hsl(275, 80%, 56%)";
   const purpleBg = "rgba(164,69,237,.25)";
 
-  function gsapFunc(el, fill, background) {
-    el = el.target;
-    TweenMax.to(el, 0.3, { background: background });
+  function gsapFunc(fill, background) {
+    TweenMax.to(playRing.current, 0.3, { background: background });
     TweenMax.to(playButton.current, 0.3, {
       background: "transparent",
       fill: fill,
     });
   }
+  useEffect(() => {
+    if (playHovered) gsapFunc("white", purple);
+    else gsapFunc(purple, purpleBg);
+  }, [playHovered]);
 
   return (
     <div
-      onMouseEnter={(el) => gsapFunc(el, "white", purple)}
-      onMouseLeave={(el) => gsapFunc(el, purple, purpleBg)}
+      ref={playRing}
+      onMouseEnter={(el) => setPlayHovered(true)}
+      onMouseLeave={(el) => setPlayHovered(false)}
       onClick={handlePlay}
       className="play-ring relative rounded-[100%] h-[3rem] md:h-[4rem] w-[3rem] md:w-[4rem]  bg-purpleBg grid place-items-center"
     >
@@ -30,9 +38,21 @@ export default function PlayButton() {
         {" "}
       </audio>
       {!isPlaying ? (
-        <Play color="transparent" fill={purple} size={32} ref={playButton} />
+        <Play
+          onMouseEnter={(el) => setPlayHovered(true)}
+          color="transparent"
+          fill={"white"}
+          size={isMobile ? 16 : 32}
+          ref={playButton}
+        />
       ) : (
-        <Pause color="transparent" fill={purple} size={32} ref={playButton} />
+        <Pause
+          onMouseEnter={(el) => setPlayHovered(true)}
+          color="transparent"
+          fill={"white"}
+          size={isMobile ? 16 : 32}
+          ref={playButton}
+        />
       )}
     </div>
   );
