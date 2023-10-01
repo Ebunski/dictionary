@@ -36,12 +36,10 @@ const appSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-
       .addCase(fetchMeaning.pending, (state, action) => {
         state.isLoading = true;
       })
       .addCase(fetchMeaning.fulfilled, (state, action) => {
-        console.log(action.payload);
         state.data = action.payload;
         state.isLoading = false;
       })

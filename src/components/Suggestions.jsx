@@ -1,25 +1,29 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import useSearchLogic from "/src/hooks/useSearchLogic";
 import { useSelector, useDispatch } from "react-redux";
 import { setSuggestionOpen } from "../store/userSlice";
 
 const SuggestionsList = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const { darkMode, theme, suggestionOpen } = useSelector(
     (state) => state.user
   );
   const mode = darkMode ? theme.dark : theme.light;
   const { handleSuggestionClick, suggestions } = useSearchLogic();
   const handleOutsideClick = (e) => {
-    if (suggestionOpen && !e.target.closest('.suggestions-container') && !e.target.closest('.search-bar')) {
+    if (
+      suggestionOpen &&
+      !e.target.closest(".suggestions-container") &&
+      !e.target.closest(".search-bar")
+    ) {
       dispatch(setSuggestionOpen(false));
     }
   };
 
   useEffect(() => {
-    document.addEventListener('click', handleOutsideClick);
+    document.addEventListener("click", handleOutsideClick);
     return () => {
-      document.removeEventListener('click', handleOutsideClick);
+      document.removeEventListener("click", handleOutsideClick);
     };
   }, [suggestionOpen]);
 
@@ -30,8 +34,8 @@ const SuggestionsList = () => {
         className={`suggestions-container absolute top-[200%] -left-[5%] md:-left-[1.5%] -right-[5%] md:-right-[1.5%] ${mode.background} rounded-md shadow-lg z-10 p-4 max-h-[50vh] overflow-auto`}
       >
         {suggestions?.map((suggestion, index, arr) => (
-          <>
-            <li key={index} onClick={() => handleSuggestionClick(suggestion)}>
+          <React.Fragment key={index}>
+            <li onClick={() => handleSuggestionClick(suggestion)}>
               {suggestion.word}
             </li>
             {index != arr.length - 1 && (
@@ -41,7 +45,7 @@ const SuggestionsList = () => {
                 } my-4 mx-2`}
               ></div>
             )}
-          </>
+          </React.Fragment>
         ))}
       </ul>
     );
