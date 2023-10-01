@@ -1,6 +1,6 @@
 import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { setSuggestions,  setIsLoading } from "/src/store/appSlice";
+import { setSuggestions, setIsLoading,} from "/src/store/appSlice";
 
 const sugApiUrl = "https://api.datamuse.com/sug";
 const dictionaryApiUrl = "https://api.dictionaryapi.dev/api/v2/entries/en/";
@@ -9,20 +9,25 @@ const dictionaryApiUrl = "https://api.dictionaryapi.dev/api/v2/entries/en/";
 //function currying" or "function composition
 //The outer function is called with the term parameter when you dispatch fetchWordSuggestionsAsync(term).
 //The inner function (dispatch) => { ... } is returned from the outer function and receives the dispatch function. It's the actual thunk function that contains the asynchronous logic,
+function alphabetically(a, b) {
+  if (a.word > b.word) return 1;
+  if (a.word < b.word) return -1;
+  return 0;
+}
 
 export const fetchWordSuggestions = (term) => async (dispatch) => {
-  dispatch(setIsLoading(true))
+  dispatch(setIsLoading(true));
   try {
     const response = await axios.get(`${sugApiUrl}?s=${term}`);
-    // console.log(response.data);
-    dispatch(setSuggestions(response.data));
+    
+    const sortedSuggestions = response.data.sort(alphabetically);
+
+    dispatch(setSuggestions(sortedSuggestions));
   } catch (error) {
     console.error("Error fetching word suggestions:", error);
     dispatch(setSuggestions([]));
-  }
-  finally{
-  dispatch(setIsLoading(false))
-    
+  } finally {
+    dispatch(setIsLoading(false));
   }
 };
 

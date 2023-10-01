@@ -1,13 +1,23 @@
-onMouseEnter={(el) => gsapFunc(el, "white", purple)}
-      onMouseLeave={(el) => gsapFunc(el, purple, purpleBg)}
-      
-      
-      
-      function gsapFunc(el, fill, background) {
-    el = el.target;
-    TweenMax.to(el, 0.3, { background: background });
-    TweenMax.to(playButton.current, 0.3, {
-      background: "transparent",
-      fill: fill,
-    });
-  }
+// tl.to(dropdown, {
+//         maxHeight: isOpen ? `${listItems.length * 40}px` : 0, // Adjust the height as needed
+//         opacity: isOpen ? 1 : 0,
+//         duration: 0.5,
+//         ease: "power2.inOut",
+//       });
+
+//       tl.staggerFromTo(
+//         listItems,
+//         0.3,
+//         { opacity: 0, y: -10 },
+//         { opacity: 1, y: 0 },
+//         0.1,
+//         "-=0.2"
+//       );
+
+//       if (isOpen) {
+//         tl.play();
+//       } else {
+//         tl.reverse();
+//       }
+//     }
+//   }, [isOpen]);

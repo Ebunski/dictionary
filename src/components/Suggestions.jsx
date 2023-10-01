@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
 import useSearchLogic from "/src/hooks/useSearchLogic";
 import { useSelector, useDispatch } from "react-redux";
-import { setSuggestionOpen } from "../store/userSlice";
+import { setSuggestionOpen } from "../store/appSlice";
 
 const SuggestionsList = () => {
   const dispatch = useDispatch();
-  const { darkMode, theme, suggestionOpen } = useSelector(
-    (state) => state.user
-  );
+  const { darkMode, theme } = useSelector((state) => state.user);
+  const { suggestionOpen } = useSelector((state) => state.app);
   const mode = darkMode ? theme.dark : theme.light;
   const { handleSuggestionClick, suggestions } = useSearchLogic();
   const handleOutsideClick = (e) => {
@@ -35,7 +34,7 @@ const SuggestionsList = () => {
       >
         {suggestions?.map((suggestion, index, arr) => (
           <React.Fragment key={index}>
-            <li onClick={() => handleSuggestionClick(suggestion)}>
+            <li onClick={() => handleSuggestionClick(suggestion.word)}>
               {suggestion.word}
             </li>
             {index != arr.length - 1 && (

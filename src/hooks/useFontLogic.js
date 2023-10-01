@@ -25,56 +25,40 @@ export default function useFontLogic() {
 
   const expandRef = useRef();
   const fontMenuRef = useRef();
-  const listItemsRefs = useRef([]);
-
-  useEffect(() => {
-    const dropdown = fontMenuRef.current;
-    const listItems = listItemsRefs.current;
-
-    if (dropdown && listItems) {
-      const tl = gsap.timeline({ paused: true });
-
-      tl.to(dropdown, {
-        height: isOpen ? "auto" : 0,
-        opacity: isOpen ? 1 : 0,
-        duration: 0.5,
-        ease: "power2.inOut",
-      });
-
-      tl.staggerFromTo(
-        listItems,
-        0.3,
-        { opacity: 0, y: -10 },
-        { opacity: 1, y: 0 },
-        0.1,
-        "-=0.2"
-      );
-
-      if (isOpen) {
-        tl.play();
-      } else {
-        tl.reverse();
-      }
-    }
-  }, [isOpen]);
+  
 
   function changeFont(i) {
     const item = fontsList[i];
     dispatch(setFont(item));
     setIsOpen(false);
+    toggleAccordion();
   }
 
-  const toggleImageRotation = () => {
+  const toggleAccordion = () => {
     const icon = expandRef.current;
+    const menu = fontMenuRef.current;
 
-    gsap.to(icon, {
+    let tl = gsap.timeline();
+
+    tl.to(icon, {
       rotation: isOpen ? 0 : 180,
       duration: 0.5,
     });
+    tl.to(
+      menu,
+      {
+        x: isOpen ? -50 : 0,
+        opacity: isOpen ? 0 : 1,
+        duration: 0.3,
+        pointerEvents: isOpen ? "none": "auto"
+      },
+      "-=0.4"
+    );
+    tl.play();
   };
 
   function handleDropdown() {
-    toggleImageRotation();
+    toggleAccordion();
     setIsOpen((prev) => !prev);
   }
 
@@ -83,9 +67,9 @@ export default function useFontLogic() {
     expandRef,
     fontsList,
     handleDropdown,
-    toggleImageRotation,
+    toggleAccordion,
     changeFont,
-    listItemsRefs,
+
     fontMenuRef,
     isOpen,
   };

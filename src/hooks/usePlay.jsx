@@ -12,7 +12,7 @@ export default function usePlay(audioRef) {
       const el = audioRef.current;
       el.paused ? el.play() : el.pause();
       dispatch(setIsPlaying(!isPlaying));
-      console.log(src, el);
+      
     }
   }
 

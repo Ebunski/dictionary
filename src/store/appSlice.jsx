@@ -6,18 +6,16 @@ import { useState, useEffect } from "react";
 const appSlice = createSlice({
   name: "app",
   initialState: {
-    font: "sans-serif",
     search: "",
     suggestions: [],
     data: welcome,
-    message: "",
     isloading: false,
     isError: false,
     isPlaying: false,
-    isMobile: window.innerWidth <= 500,
+    suggestionOpen: false,
   },
   reducers: {
-    setSearch(state, action) {
+    setInput(state, action) {
       state.search = action.payload;
     },
     setSuggestions(state, action) {
@@ -30,19 +28,19 @@ const appSlice = createSlice({
     setIsLoading(state, action) {
       state.isLoading = action.payload;
     },
+    
     setIsPlaying(state, action) {
       state.isPlaying = action.payload;
     },
-    setMessage() {},
-    setIsMobile() {
-      state.isMobile = action.payload;
-    }
-    
+    setSuggestionOpen: (state, action) => {
+      state.suggestionOpen = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
       .addCase(fetchMeaning.pending, (state, action) => {
         state.isLoading = true;
+        state.isError = false;
       })
       .addCase(fetchMeaning.fulfilled, (state, action) => {
         state.data = action.payload;
@@ -51,17 +49,19 @@ const appSlice = createSlice({
       .addCase(fetchMeaning.rejected, (state, action) => {
         state.data = [];
         state.isLoading = false;
+        state.isError = true;
+        console.log(action.error.message);
       });
   },
 });
 
 export default appSlice.reducer;
 export const {
-  setSearch,
+  setInput,
   setIsLoading,
   setSuggestions,
   setData,
   setMessage,
   setIsPlaying,
-  setIsMobile,
+  setSuggestionOpen,
 } = appSlice.actions;

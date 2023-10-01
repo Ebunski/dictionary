@@ -1,19 +1,21 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Moon } from "react-feather";
-import {toggleTheme} from '../store/userSlice'
+import { Moon, Sun } from "react-feather";
+import { toggleTheme } from "../store/userSlice";
 import { TweenMax } from "gsap/gsap-core";
 import Fonts from "./Fonts";
 function Nav() {
   const dispatch = useDispatch();
   const purple = "hsl(275, 80%, 56%)";
   const purpleBg = "rgba(164,69,237,.25)";
-  const {darkMode} = useSelector((state) => state.user)
+  const { darkMode } = useSelector((state) => state.user);
+ 
+  const ThemeIcon = darkMode ? Moon : Sun;
   const togglePill = useRef();
   const toggleIcon = useRef();
   function handleThemeChange(e) {
     let el = e.target;
-    dispatch(toggleTheme())
+    dispatch(toggleTheme());
   }
 
   useEffect(() => {
@@ -26,17 +28,14 @@ function Nav() {
     }
   }, [darkMode]);
 
-
   return (
     <nav className="flex items-center justify-between py-8 md:py-[3rem]">
       <img src="./assets/dictionary-logo.svg" alt="Book" />
       <div className="options flex gap-4 items-center">
-      
-          <Fonts />
-       
+        <Fonts />
+
         <div className="flex gap-4 items-center">
           <div
-
             ref={toggleIcon}
             onClick={handleThemeChange}
             htmlFor="love"
@@ -48,7 +47,7 @@ function Nav() {
             ></span>
           </div>
           <div>
-            <Moon color={darkMode ? purple : 'gray'} />
+            <ThemeIcon color={darkMode ? purple : "gray"} />
           </div>
         </div>
       </div>

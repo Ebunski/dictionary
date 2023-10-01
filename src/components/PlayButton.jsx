@@ -5,7 +5,7 @@ import { TweenMax, Power3 } from "gsap";
 import { Pause, Play } from "react-feather";
 
 export default function PlayButton() {
-  const { isMobile } = useSelector((st) => st.app);
+  const { isMobile } = useSelector((st) => st.user);
   const playButton = useRef();
   const playRing = useRef();
   const [playHovered, setPlayHovered] = useState(false);

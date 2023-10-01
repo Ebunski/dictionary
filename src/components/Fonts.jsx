@@ -1,42 +1,45 @@
 import useFontLogic from "/src/hooks/useFontLogic";
-
+import useConstants from "/src/hooks/useConstants";
 export default function Fonts() {
   const {
     font,
     fontsList,
     handleDropdown,
-    toggleImageRotation,
+    toggleAccordion,
     changeFont,
-    listItemsRefs,
+  
     fontMenuRef,
     expandRef,
   } = useFontLogic();
-
+  const { background } = useConstants();
   return (
-    <div
-      className="relative flex justify-center items-center gap-4 
-    min-w-[10rem]"
-    >
+    <div className="relative flex justify-center items-center  gap-4 min-w-[8rem]">
       <span> {font.name} </span>
-      <ul
-        ref={fontMenuRef}
-        className="w-full absolute top-[100%] flex z-10 flex-col items-center py-3 px-5"
-      >
-        {fontsList.map((x, index) => (
-          <li
-            ref={(el) => (listItemsRefs.current[index] = el)}
-            key={index}
-            onClick={() => changeFont(index)}
-            className={`font-normal
-            ${x.style} ${x.name === font.name && "text-[#743EB8] "} cursor-pointer`}
-          >
-            {x.name}
-          </li>
-        ))}
-      </ul>
+
       <div onClick={handleDropdown} ref={expandRef} className="w-8">
         <img src="./assets/expand_more.png" alt="Expand More" />
       </div>
+
+      <ul
+        ref={fontMenuRef}
+        className={`w-full absolute top-[100%] z-10 flex flex-col py-3 px-5 ${background} border border-[#9e35e9] border-2 opacity-0 pointer-events-none`}
+      >
+        {fontsList.map((x, index) => (
+          <li
+            key={index}
+            onClick={() => changeFont(index)}
+            className={` w-full flex align-self-center cursor-pointer`}
+          >
+            <p
+              className={`font-bold text-md ${x.style} ${
+                x.name === font.name ? "text-[#9e35e9]" : ""
+              }`}
+            >
+              {x.name}
+            </p>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }

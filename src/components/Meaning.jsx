@@ -8,7 +8,7 @@ export default function Meaning({
   synonyms,
 }) {
   const {darkMode} = useSelector((st) => st.user)
-  useEffect(() => console.log(darkMode), [darkMode])
+
 
   return (
     <div className="noun py-6">

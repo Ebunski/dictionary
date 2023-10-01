@@ -3,7 +3,7 @@ import Meaning from "./Meaning";
 import {useSelector} from 'react-redux'
 
 function Meanings() {
-  const { data, word, sound, meaningsArr = [], audio, url } = useData();
+  const {  meaningsArr = [], } = useData();
   const {isLoading} = useSelector((st) => st.app)
   return (
     <section className="meaning">

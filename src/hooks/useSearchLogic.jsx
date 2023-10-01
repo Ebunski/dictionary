@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
-import { setSearch } from "/src/store/appSlice";
+import { setInput } from "/src/store/appSlice";
 import { fetchWordSuggestions, fetchMeaning } from "/src/utils/api";
-import { setSuggestionOpen } from "../store/userSlice";
+import { setSuggestionOpen } from "../store/appSlice";
 
 export default function useSearchLogic() {
   // state and dispatch
@@ -13,28 +13,30 @@ export default function useSearchLogic() {
   const handleInputChange = async (event) => {
     const userInput = event.target.value;
 
-    dispatch(setSearch(userInput));
+    dispatch(setInput(userInput));
 
     if (userInput.trim() !== "") {
       dispatch(fetchWordSuggestions(userInput));
+      dispatch(setSuggestionOpen(true));
     }
-    if(userInput.length == 0) dispatch(setSuggestionOpen(false))
-    else dispatch(setSuggestionOpen(true))
+    if (userInput.length == 0) dispatch(setSuggestionOpen(false));
   };
 
   function clear() {
-    dispatch(setSearch(""));
-    dispatch(setSuggestionOpen(false))
+    dispatch(setInput(""));
+    dispatch(setSuggestionOpen(false));
+  
   }
   //function to set input to selected suggestion and search
   const handleSuggestionClick = (suggestion) => {
-    dispatch(setSearch(suggestion));
-    dispatch(setSuggestions([]));
+    dispatch(setInput(suggestion));
+    dispatch(fetchMeaning(suggestion));
+    dispatch(setSuggestionOpen(false));
   };
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
-    dispatch(setSuggestionOpen(false))
+    dispatch(setSuggestionOpen(false));
     dispatch(fetchMeaning(searchTerm));
   };
   return {

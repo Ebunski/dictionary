@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 export const userSlice = createSlice({
   name: "user",
   initialState: {
+    isMobile: window.innerWidth <= 500,
     darkMode: window.matchMedia("(prefers-color-scheme:dark)").matches,
     theme: {
       dark: {
@@ -38,7 +39,6 @@ export const userSlice = createSlice({
       name: "sans-serif",
       style: "font-sans",
     },
-    suggestionOpen: false,
   },
   reducers: {
     setFont(state, { payload }) {
@@ -47,11 +47,11 @@ export const userSlice = createSlice({
     toggleTheme: (state) => {
       state.darkMode = !state.darkMode;
     },
-    setSuggestionOpen: (state, actions) => {
-      state.suggestionOpen = actions.payload;
+    setIsMobile() {
+      state.isMobile = action.payload;
     },
   },
 });
 
 export default userSlice.reducer;
-export const { toggleTheme, setFont, setSuggestionOpen } = userSlice.actions;
+export const { toggleTheme, setFont, setIsMobile } = userSlice.actions;
