@@ -10,7 +10,7 @@ function Nav() {
   const purpleBg = "rgba(164,69,237,.25)";
   const { darkMode } = useSelector((state) => state.user);
  
-  const ThemeIcon = darkMode ? Moon : Sun;
+  const ThemeIcon = darkMode ?Sun : Moon;
   const togglePill = useRef();
   const toggleIcon = useRef();
   function handleThemeChange(e) {
