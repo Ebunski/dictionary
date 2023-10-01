@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Moon, Sun } from "react-feather";
+import { Moon } from "react-feather";
 import { toggleTheme } from "../store/userSlice";
 import { TweenMax } from "gsap/gsap-core";
 import Fonts from "./Fonts";
@@ -9,8 +9,7 @@ function Nav() {
   const purple = "hsl(275, 80%, 56%)";
   const purpleBg = "rgba(164,69,237,.25)";
   const { darkMode } = useSelector((state) => state.user);
- 
-  const ThemeIcon = darkMode ?Sun : Moon;
+
   const togglePill = useRef();
   const toggleIcon = useRef();
   function handleThemeChange(e) {
@@ -47,7 +46,7 @@ function Nav() {
             ></span>
           </div>
           <div>
-            <ThemeIcon color={darkMode ? purple : "gray"} />
+            <Moon color={darkMode ? purple : "gray"} />
           </div>
         </div>
       </div>
