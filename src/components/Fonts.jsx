@@ -28,7 +28,7 @@ export default function Fonts() {
             key={index}
             onClick={() => changeFont(index)}
             className={`font-normal
-            ${x.style} ${x.name === font.name && "text-[#743EB8]"}`}
+            ${x.style} ${x.name === font.name && "text-[#743EB8] "} cursor-pointer`}
           >
             {x.name}
           </li>

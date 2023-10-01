@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchWordSuggestions, fetchMeaning } from "/src/utils/api";
 import welcome from "/src/utils/welcome";
+import { useState, useEffect } from "react";
 
 const appSlice = createSlice({
   name: "app",
@@ -13,9 +14,9 @@ const appSlice = createSlice({
     isloading: false,
     isError: false,
     isPlaying: false,
+    isMobile: window.innerWidth <= 500,
   },
   reducers: {
-    
     setSearch(state, action) {
       state.search = action.payload;
     },
@@ -33,15 +34,17 @@ const appSlice = createSlice({
       state.isPlaying = action.payload;
     },
     setMessage() {},
+    setIsMobile() {
+      state.isMobile = action.payload;
+    }
+    
   },
   extraReducers: (builder) => {
     builder
-
       .addCase(fetchMeaning.pending, (state, action) => {
         state.isLoading = true;
       })
       .addCase(fetchMeaning.fulfilled, (state, action) => {
-        console.log(action.payload);
         state.data = action.payload;
         state.isLoading = false;
       })
@@ -54,11 +57,11 @@ const appSlice = createSlice({
 
 export default appSlice.reducer;
 export const {
-  
   setSearch,
   setIsLoading,
   setSuggestions,
   setData,
   setMessage,
   setIsPlaying,
+  setIsMobile,
 } = appSlice.actions;
