@@ -22,7 +22,7 @@ const App = () => {
 
   return (
     <div
-      className={`App flex justify-center ${font.style} ${background} ${textMain}`}
+      className={`App flex justify-center ${font.style} ${background} ${textMain} min-h-screen`}
     >
       <div className="w-[95%] md:w-[60%]">
         <Nav />
