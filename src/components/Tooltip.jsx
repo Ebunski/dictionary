@@ -30,7 +30,7 @@ export default function Tooltip({ src }) {
   return (
     <div
       ref={tipRef}
-      className="absolute bg-red-500 text-white w-[150px] py-1 px-2 rounded-md right-0 top-full opacity-0 flex items-center transition-opacity duration-300 z-[1]"
+      className="absolute bg-red-500 text-white w-[content-width] py-1 px-2 rounded-md right-0 top-full opacity-0 flex items-center transition-opacity duration-300 z-[1]"
       
     >
       <p> No audio available </p>
