@@ -37,6 +37,7 @@ export default function useFontLogic() {
   const toggleAccordion = () => {
     const icon = expandRef.current;
     const menu = fontMenuRef.current;
+    
 
     let tl = gsap.timeline();
 
@@ -47,7 +48,7 @@ export default function useFontLogic() {
     tl.to(
       menu,
       {
-        x: isOpen ? -50 : 0,
+        x: isOpen ? 0 : 50,
         opacity: isOpen ? 0 : 1,
         duration: 0.3,
         pointerEvents: isOpen ? "none": "auto"

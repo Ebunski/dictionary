@@ -1,18 +1,33 @@
 import { useSelector, useDispatch } from "react-redux";
-import { setIsPlaying } from "/src/store/appSlice";
+import { setIsPlaying, setShowTooltip } from "/src/store/appSlice";
+import { useRef } from "react";
 import useData from "/src/hooks/useData";
 
 export default function usePlay(audioRef) {
   const { audio: src } = useData();
-  const isPlaying = useSelector((state) => state.app.isPlaying);
+  const { isPlaying, showTooltip } = useSelector((state) => state.app);
   const dispatch = useDispatch();
+  const timeoutId = useRef(null);
 
-  function handlePlay() {
+  function handlePlay(src) {
     if (audioRef) {
+      if (src === "") {
+        if (showTooltip) {
+          clearTimeout(timeoutId.current);
+          
+        } else {
+          dispatch(setShowTooltip(true));
+          
+        }
+        timeoutId.current = setTimeout(() => {
+          dispatch(setShowTooltip(false));
+          
+        }, 3000);
+      }
+
       const el = audioRef.current;
       el.paused ? el.play() : el.pause();
       dispatch(setIsPlaying(!isPlaying));
-      
     }
   }
 
@@ -20,5 +35,10 @@ export default function usePlay(audioRef) {
     dispatch(setIsPlaying(false));
   }
 
-  return { isPlaying, handlePlay, src , handleAudioEnded};
+  return {
+    isPlaying,
+    handlePlay,
+    src,
+    handleAudioEnded,
+  };
 }

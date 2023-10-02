@@ -12,6 +12,7 @@ const appSlice = createSlice({
     isloading: false,
     isError: false,
     isPlaying: false,
+    showTooltip: false,
     suggestionOpen: false,
   },
   reducers: {
@@ -28,7 +29,9 @@ const appSlice = createSlice({
     setIsLoading(state, action) {
       state.isLoading = action.payload;
     },
-    
+    setShowTooltip(state,action){
+      state.showTooltip = action.payload
+    },
     setIsPlaying(state, action) {
       state.isPlaying = action.payload;
     },
@@ -45,6 +48,7 @@ const appSlice = createSlice({
       .addCase(fetchMeaning.fulfilled, (state, action) => {
         state.data = action.payload;
         state.isLoading = false;
+        console.log(action.payload);
       })
       .addCase(fetchMeaning.rejected, (state, action) => {
         state.data = [];
@@ -64,4 +68,5 @@ export const {
   setMessage,
   setIsPlaying,
   setSuggestionOpen,
+  setShowTooltip,
 } = appSlice.actions;

@@ -8,7 +8,7 @@ export default function useData() {
   const word = data?.word;
   const meaningsArr = data?.meanings;
   const { text: sound = "" } = data?.phonetics[0] || {};
-  const audio = data?.phonetics.find((x) => x.audio !== "").audio;
+  const audio = data?.phonetics?.find((x) => x.audio !== "")?.audio || "";
   const url = data?.sourceUrls[0];
 
   // const audio = "";

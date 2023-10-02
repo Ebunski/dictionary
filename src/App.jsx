@@ -8,7 +8,7 @@ import { setIsMobile } from "./store/userSlice";
 
 const App = () => {
   const dispatch = useDispatch();
-  const {background, textMain } = useConstants()
+  const { background, textMain } = useConstants();
   const { font } = useSelector((st) => st.user);
 
   const handleWindowResize = () => {
@@ -22,7 +22,7 @@ const App = () => {
 
   return (
     <div
-      className={`App flex justify-center ${font.style} ${background} ${textMain} min-h-screen`}
+      className={`App flex justify-center ${font.style} ${background} ${textMain} min-h-screen overflow-hidden`}
     >
       <div className="w-[95%] md:w-[60%]">
         <Nav />
