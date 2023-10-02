@@ -7,39 +7,48 @@ Frontend Mentor challenges help you improve your coding skills by building reali
 
 ## Table of contents
 
-- [Overview](#overview)
-  - [The challenge](#the-challenge)
+  - [Workflow](#workflow)
   - [Screenshot](#Screenshot)
-  - [Links](#Links)
+  - [Links](#links)
 - [My process](#my-process)
   - [Built with](#built-with)
-  - [What I learned](#what-i-learned)
-  - [Continued development](#continued-development)
-  - [Useful resources](#useful-resources)
-- [Author](#author)
-- [Acknowledgments](#acknowledgments)
+  - [What I learned](#things-i-learnt)
+- [Profile](#author)
+- [Acknowledgments](#acknowledgement)
 
-## Overview
-
-### The challenge
-
-Catalyst:
-[x] styling
-[ ] user Preferences
-[ ] Loading Screen
-[ ] Source attribution
-[ ] Switch between light and dark themes
-[ ] Suggestions
-
-[x] Dtaa fetching
-[ ] See a form validation message when trying to submit a blank form
-[x] Play the audio file for a word when it's available
-[ ] Switch between serif, sans serif, and monospace fonts
-[x] Enter
-[x] Cancel input
+## Screenshot
 
 
-## Things i Learned
+## Links
+[live site](https://dictionary-cat-bun.netlify.app/)  
+[Github](https://github.com/Ebunski/dictionary)
+
+
+
+##  Workflow
+
+#### Catalyst:  
+- [x] styling    
+- [x] user Preferences  
+- [x] Loading Screen  
+- [x] Source attribution
+- [x] Switch between light and dark themes
+- [x] Suggestions
+
+#### Ebun
+- [x] Data fetching
+- [x] Error handling
+- [x] Play the audio file for a word when it's available
+- [x] Switch between serif, sans serif, and monospace fonts.
+- [x] other logic
+- [x] input
+
+## Built with
+- React
+- Tailwind
+- Redux toolkit
+
+## Things i Learnt
 - working with React-redux (especially with data fetching)
 - working with audio.
 
@@ -74,3 +83,13 @@ Catalyst:
 6. `oncanplay`: Fired when enough of the audio has loaded to be able to play it.
 7. `oncanplaythrough`: Fired when enough of the audio has loaded to play it smoothly without buffering interruptions.
 
+## Author
+[Twitter](https://twitter.com/Ebun_ski?t=ffhsREWTvATspCVF6RMITw&s=09)
+
+[LinkedIn](https://www.linkedin.com/in/ebunoluwa-oyebola-1490021b1)
+
+Email: ebunoyebola.tech@gmail.com
+
+
+## Acknowledgement
+Thanks to catalyst (@Catalyst497 on twitter) for collaboration.
