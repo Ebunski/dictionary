@@ -32,9 +32,10 @@ function SearchBar() {
             <X size={24} color={purpleBg} />{" "}
           </span>
         )}
-        <button aria-label="submit" role="search">
+        {searchTerm && ( <button aria-label="submit" role="search">
           <img src="./assets/search.svg" alt="Search " />
-        </button>
+        </button>)}
+       
         <SuggestionsList />
       </form>
     </div>
