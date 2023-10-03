@@ -22,7 +22,7 @@ export default function Meaning({
         {definitions.map((x, index) => (
           <li key={index} className="pb-4">
             <div className="pb-1">{x.definition}</div>
-            <div className="text-[#84849a]">{x.example}</div>
+            <div className="text-[#84849a] pl-2 italic">{x.example}</div>
           </li>
         ))}
       </ul>
