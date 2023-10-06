@@ -1,6 +1,7 @@
 import { useRef, useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import usePlay from "/src/hooks/usePlay";
+import useConstants from "/src/hooks/useConstants";
 import { TweenMax, Power3 } from "gsap";
 import { Pause, Play } from "react-feather";
 import Tooltip from "./Tooltip";
@@ -12,8 +13,8 @@ export default function PlayButton() {
   const audio = useRef();
   const { isPlaying, handlePlay, src, handleAudioEnded} =
     usePlay(audio);
-  const purple = "hsl(275, 80%, 56%)";
-  const purpleBg = "rgba(164,69,237,.25)";
+    const {purple, purpleBg } = useConstants();
+  
 
   function gsapFunc(fill, background) {
     TweenMax.to(playRing.current, 0.3, { background: background });

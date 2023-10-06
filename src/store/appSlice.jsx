@@ -8,6 +8,7 @@ const appSlice = createSlice({
   initialState: {
     search: "",
     suggestions: [],
+    favourites: [],
     data: welcome,
     isloading: false,
     isError: false,
@@ -29,14 +30,23 @@ const appSlice = createSlice({
     setIsLoading(state, action) {
       state.isLoading = action.payload;
     },
-    setShowTooltip(state,action){
-      state.showTooltip = action.payload
+    setShowTooltip(state, action) {
+      state.showTooltip = action.payload;
     },
     setIsPlaying(state, action) {
       state.isPlaying = action.payload;
     },
     setSuggestionOpen: (state, action) => {
       state.suggestionOpen = action.payload;
+    },
+    setFavourites(state, action) {
+      const word = action.payload;
+      let favourites = state.favourites;
+
+      if (word === favourites?.find((x) => x === word)) {
+        state.favourites = [];
+      }
+      favourites.push(action.payload);
     },
   },
   extraReducers: (builder) => {
@@ -69,4 +79,5 @@ export const {
   setIsPlaying,
   setSuggestionOpen,
   setShowTooltip,
+  setFavourites,
 } = appSlice.actions;
