@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Moon } from "react-feather";
@@ -9,6 +10,7 @@ function Nav() {
   const purple = "hsl(275, 80%, 56%)";
   const purpleBg = "rgba(164,69,237,.25)";
   const { darkMode } = useSelector((state) => state.user);
+  const [backtext, setBackText] = useState(null)
 
   const togglePill = useRef();
   const toggleIcon = useRef();
@@ -26,11 +28,20 @@ function Nav() {
       TweenMax.to(togglePill.current, 0.3, { left: "60%" });
     }
   }, [darkMode]);
+  useEffect(() => {
+    axios
+      .get("/api")
+      .then((res) => setBackText(res.data))
+      .catch((err) => console.log(err));
+  });
 
   return (
     <nav className="flex items-center justify-between py-8 md:py-[3rem]">
       <img src="./assets/dictionary-logo.svg" alt="Book" />
       <div className="options flex gap-4 items-center">
+        {
+          backtext && <div>{backtext}</div>
+        }
         <Fonts />
 
         <div className="flex gap-4 items-center">

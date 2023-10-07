@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import useConstants from "/src/hooks/useConstants";
@@ -19,6 +20,7 @@ const App = () => {
     window.addEventListener("resize", () => handleWindowResize);
     return () => window.removeEventListener("resize", handleWindowResize);
   }, []);
+ 
 
   return (
     <div
