@@ -4,7 +4,7 @@
   "description": "Backend for the dictionary app",
   "main": "app.js",
   "scripts": {
-    "start":"nodemon index.js"
+    "start":"nodemon app.js"
 },
   "repository": {
     "type": "git",
