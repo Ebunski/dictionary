@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Cookies from 'js-cookie';
 
 function Login() {
   const navigate = useNavigate();
@@ -14,7 +15,8 @@ function Login() {
       .then((res) => {
         if (res.data == "Login successful") {
           console.log(res.data);
-
+          Cookies.set('token', res.data.token, {secure: true, sameSite: 'Strict'})
+          console.log(res.data.token)
           // On Successful login, clear email and password fields.
           setEmail("");
           setPassword("");
@@ -27,7 +29,7 @@ function Login() {
     navigate("/");
   };
   return (
-    <section>
+    <div className="Login Page">
       <form
         method="POST"
         className="grid text-center gap-4 justify-center"
@@ -56,7 +58,7 @@ function Login() {
           onClick={handleLoginSubmit}
         />
       </form>
-    </section>
+    </div>
   );
 }
 

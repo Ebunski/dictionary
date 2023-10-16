@@ -10,7 +10,8 @@ import { useDispatch } from "react-redux";
 
 import { setIsMobile } from "./store/userSlice";
 import Home from "./pages/Home";
-import Login from './pages/Login'
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -27,6 +28,7 @@ const App = () => {
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Signup />} />
     </Routes>
   );
 };
