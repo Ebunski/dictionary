@@ -4,12 +4,13 @@ const passport = require("passport");
 const bodyParser = require('body-parser');
 const User = require("./models/User.model");
 const jwt = require("jsonwebtoken");
+const cors = require('cors');
 const JSON_SECRET = process.env.JSON_SECRET;
 require("dotenv").config();
 
 require("./helpers/init_mongodb");
 
-require("./auth/passport")(passport);
+// require("./auth/passport")(passport);
 // Express session
 // app.use(
 //   session({
@@ -21,14 +22,18 @@ require("./auth/passport")(passport);
 //     },
 //   })
 // );
+app.use(express.json());
+app.use(cors())
 app.use(passport.initialize());
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: false }))
 // app.use(passport.session());
 
 app.get("/", (req, res) => {
   res.send("Hello World. Backend is connected.");
 });
+app.post('/test', (req,res) => {
+  console.log(req.body)
+  res.json(req.body)
+})
 app.post("/login", (req, res) => {
   passport.authenticate("local", (err, user, info) => {
     if (err) return console.log(err);
@@ -65,7 +70,8 @@ app.post("/login", (req, res) => {
   });
 });
 app.post("/register", (req, res) => {
-  console.log(req.query.params)
+  console.log(req.body)
+  res.json (req.body)
   // const { username, email, password } = req.body;
   // if (!email) return res.send({ message: "Please enter your email address." });
   // if (

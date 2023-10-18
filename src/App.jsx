@@ -12,6 +12,7 @@ import { setIsMobile } from "./store/userSlice";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
+import axios from "axios";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -23,6 +24,17 @@ const App = () => {
     window.addEventListener("resize", () => handleWindowResize);
     return () => window.removeEventListener("resize", handleWindowResize);
   }, []);
+  useEffect(() => {
+    const testRequest = async () => {
+      try {
+        const response = await axios.post('/api/test', {boy: 'ade', girl: 'bisi' })
+        console.log(response);
+      } catch(err) {
+        console.log(err)
+      }
+    }
+    testRequest()
+  }, [])
 
   return (
     <Routes>
