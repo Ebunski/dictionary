@@ -1,39 +1,37 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Cookies from 'js-cookie';
+import Cookies from "js-cookie";
 
 function Login() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const handleLoginSubmit = (e) => {
+  const handleLoginSubmit = async (e) => {
     e.preventDefault();
-
-    axios
-      .post("/api/login")
-      .then((res) => {
-        if (res.data == "Login successful") {
-          console.log(res.data);
-          Cookies.set('token', res.data.token, {secure: true, sameSite: 'Strict'})
-          console.log(res.data.token)
-          // On Successful login, clear email and password fields.
-          setEmail("");
-          setPassword("");
-
-          navigate("/");
-        } else console.log(res.data);
-      })
-      .catch((err) => err && console.log(err));
-
-    navigate("/");
+    try {
+      const res = await axios.post("/api/login", { email, password });
+      if (res.data == "Login successful") {
+        console.log(res.data);
+        Cookies.set("token", res.data.token, {
+          secure: true,
+          sameSite: "Strict",
+        });
+        console.log(res.data.token);
+        // On Successful login, clear email and password fields.
+        setEmail("");
+        setPassword("");
+        navigate("/");
+      } else {
+        console.log(res.data);
+      }
+    } catch (err) {
+      console.log(err);
+    }
   };
   return (
     <div className="Login Page">
-      <form
-        method="POST"
-        className="grid text-center gap-4 justify-center"
-      >
+      <form method="POST" className="grid text-center gap-4 justify-center">
         <div className="text-[1.5rem] md:text-[3rem]">Login</div>
         <input
           type="email"
