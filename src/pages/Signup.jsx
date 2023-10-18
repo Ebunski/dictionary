@@ -5,7 +5,7 @@ function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
-  const handleRegisterSubmit = (e) => {
+  const handleRegisterSubmit = async (e) => {
     e.preventDefault();
     console.log(email, password, username);
     const credentials = {
@@ -13,15 +13,12 @@ function Signup() {
       password: password,
       username: username,
     };
-    axios
-      .post(
-        "/api/register",
-        { params: credentials }
-        // { "Content-Type": "application/json" }
-      )
-      .then((res) => {
-        console.log(res);
-      });
+    try {
+      const res = await axios.post("/api/register", credentials);
+      console.log(res);
+    } catch (err) {
+      console.log(err);
+    }
   };
   return (
     <div className="Login Page">
