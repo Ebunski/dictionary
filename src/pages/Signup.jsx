@@ -7,7 +7,6 @@ function Signup() {
   const [username, setUsername] = useState("");
   const handleRegisterSubmit = async (e) => {
     e.preventDefault();
-    console.log(email, password, username);
     const credentials = {
       email: email,
       password: password,
@@ -15,13 +14,14 @@ function Signup() {
     };
     try {
       const res = await axios.post("/api/register", credentials);
-      console.log(res);
+      if(res.data?.message == "Sign up successful.") console.log('Sign Up Success')
+      else console.log('Something went wrong.')
     } catch (err) {
       console.log(err);
     }
   };
   return (
-    <div className="Login Page">
+    <div className="Register Page">
       <form method="POST" className="grid text-center gap-4 justify-center">
         <div className="text-[1.5rem] md:text-[3rem]">Sign Up</div>
         <input

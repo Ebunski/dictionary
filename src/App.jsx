@@ -24,17 +24,6 @@ const App = () => {
     window.addEventListener("resize", () => handleWindowResize);
     return () => window.removeEventListener("resize", handleWindowResize);
   }, []);
-  useEffect(() => {
-    const testRequest = async () => {
-      try {
-        const response = await axios.post('/api/test', {boy: 'ade', girl: 'bisi' })
-        console.log(response);
-      } catch(err) {
-        console.log(err)
-      }
-    }
-    testRequest()
-  }, [])
 
   return (
     <Routes>
