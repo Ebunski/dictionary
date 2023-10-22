@@ -1,16 +1,17 @@
 const express = require("express");
 const app = express();
 const passport = require("passport");
-const bodyParser = require('body-parser');
+const bodyParser = require("body-parser");
 const User = require("./models/User.model");
 const jwt = require("jsonwebtoken");
-const cors = require('cors');
-const bcrypt = require('bcrypt')
-const JSON_SECRET = process.env.JSON_SECRET;
+const cors = require("cors");
+const bcrypt = require("bcrypt");
 require("dotenv").config();
+const JSON_SECRET = process.env.JSON_SECRET;
 
 require("./helpers/init_mongodb");
-require("./auth/passport")(passport);
+require("./auth/auth_config");
+// require("./auth/passport")(passport);
 
 // Express session
 // app.use(
@@ -24,7 +25,7 @@ require("./auth/passport")(passport);
 //   })
 // );
 app.use(express.json());
-app.use(cors())
+app.use(cors());
 app.use(passport.initialize());
 // app.use(passport.session());
 
@@ -32,36 +33,57 @@ app.get("/", (req, res) => {
   res.send("Hello World. Backend is connected.");
 });
 
-app.post("/login", (req, res) => {
-  console.log('Route was reached.')
-  passport.authenticate("local", (err, user, info) => {
-    if (err) return console.log(err);
-    if (!req.body.email)
-      return res.send({
-        message: "You have not inputed your email address.",
-      });
-    if (!req.body.password)
-      return res.send({ message: "Please enter your password." });
-    if (!user) {
-      return res.send({ message: "Invalid email or password." });
-    }
-    req.logIn(user, (err) => {
-      if (err) {
-        console.log(err);
-        return next(err);
+app.post("/login", async (req, res) => {
+  const { username, password } = req.body;
+  try {
+    const user = await User.findOne({ username }).exec();
+    if (user) {
+      if (bcrypt.compareSync(password, user.password)) {
+        const expirationTime = Math.floor(Date.now() / 1000) + 60 * 60 * 24;
+        const token = jwt.sign(
+          { userId: user.id, exp: expirationTime },
+          JSON_SECRET
+        );
+        console.log("Successful login");
+        console.log("token", token)
+        res.json({
+          message: "Successful Login", token
+        });
       }
-      const expirationTime = Math.floor(Date.now() / 1000) + 60 * 60 * 24;
-      const token = jwt.sign(
-        { userId: user.id, exp: expirationTime },
-        secretKey
-      );
-      console.log("Successful login");
-      res.cookie("token", token, { httpOnly: true });
-      res.json({
-        message: "Successful Login",
-      });
-    })(req, res, next);
-  });
+    } else {
+      res.send("User does not exist in database");
+    }
+  } catch (err) {
+    console.log(err);
+  }
+  // passport.authenticate("local", (err, user, info) => {
+  //   if (err) return console.log(err);
+  //   if (!req.body.email)
+  //     return res.send({
+  //       message: "You have not inputed your email address.",
+  //     });
+  //   if (!req.body.password)
+  //     return res.send({ message: "Please enter your password." });
+  //   if (!user) {
+  //     return res.send({ message: "Invalid email or password." });
+  //   }
+  //   req.logIn(user, (err) => {
+  //     if (err) {
+  //       console.log(err);
+  //       return next(err);
+  //     }
+  //     const expirationTime = Math.floor(Date.now() / 1000) + 60 * 60 * 24;
+  //     const token = jwt.sign(
+  //       { userId: user.id, exp: expirationTime },
+  //       secretKey
+  //     );
+  //     console.log("Successful login");
+  //     res.cookie("token", token, { httpOnly: true });
+  //     res.json({
+  //       message: "Successful Login",
+  //     });
+  //   })(req, res, next);
+  // });
 });
 app.post("/register", (req, res) => {
   const { username, email, password } = req.body;
@@ -84,7 +106,7 @@ app.post("/register", (req, res) => {
           if (err) console.log(err);
           newUser.password = hash;
           newUser.save().catch((err) => console.log(err));
-          console.log(newUser)
+          console.log(newUser);
           res.json({ message: "Sign up successful." });
         });
       });
