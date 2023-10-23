@@ -1,7 +1,12 @@
 import React, { useState } from "react";
 import axios from "axios";
+import {useSelector} from 'react-redux';
+import { useNavigate } from "react-router-dom";
 
 function Signup() {
+  const navigate = useNavigate()
+  const {logged} = useSelector((state) => state.user)
+  const [registerErr, setRegisterErr] = useState(null) 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
@@ -14,8 +19,14 @@ function Signup() {
     };
     try {
       const res = await axios.post("/api/register", credentials);
-      if(res.data?.message == "Sign up successful.") console.log('Sign Up Success')
-      else console.log('Something went wrong.')
+      if(res.data?.message == "Sign up successful.") {
+        console.log('Sign up success.')
+        navigate('/login')
+      }
+      else {
+        console.log(res.data?.message)
+        setRegisterErr(res.data?.message)
+      }
     } catch (err) {
       console.log(err);
     }

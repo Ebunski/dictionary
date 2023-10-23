@@ -1,9 +1,13 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import {useSelector, useDispatch} from 'react-redux';
 import { useNavigate } from "react-router-dom";
+import { setLogged } from "../store/userSlice";
 import Cookies from "js-cookie";
 
 function Login() {
+  const dispatch = useDispatch()
+  const {logged} = useSelector((state) => state.user)
   const navigate = useNavigate();
   const [loginErr, setLoginErr] = useState(null);
   const [email, setEmail] = useState("");
@@ -25,6 +29,7 @@ function Login() {
         setLoginErr(null)
         setEmail("");
         setPassword("");
+        dispatch(setLogged(true))
         navigate("/");
       } else {
         console.log(res.data?.message)

@@ -14,9 +14,11 @@ import Login from "./pages/login";
 import Signup from "./pages/Signup";
 import PrivatePage from "./pages/PrivatePage";
 import axios from "axios";
+import LoadingPage from "./pages/LoadingPage";
 
 const App = () => {
   const { logged } = useSelector((state) => state.user);
+  const [routeIntended, setRouteIntended] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const handleWindowResize = () => {
@@ -31,7 +33,7 @@ const App = () => {
   useEffect(() => {
     const checkAuthenticated = async () => {
       try {
-        const res = await axios.get("/protectedroute", {
+        const res = await axios.get("/api/protectedroute", {
           headers: {
             "x-access-token": localStorage.getItem("token"),
           },
@@ -39,8 +41,8 @@ const App = () => {
         if (!res.data.auth) {
           dispatch(setLogged(false));
           localStorage.removeItem("token");
-          navigate("/login");
         } else {
+          console.log("User is logged in.");
           dispatch(setLogged(true));
         }
       } catch (err) {
@@ -50,8 +52,12 @@ const App = () => {
     checkAuthenticated();
   }, []);
   const CheckLoggedIn = ({ children }) => {
-    if (!logged) return <Navigate to="/" replace />;
-    return children;
+    if (logged == "loading") {
+      <LoadingPage />;
+    } else {
+      if (!logged) return <Navigate to="/login" replace />;
+      return children;
+    }
   };
   return (
     <Routes>
