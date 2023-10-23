@@ -35,6 +35,7 @@ function Signup() {
     <div className="Register Page">
       <form method="POST" className="grid text-center gap-4 justify-center">
         <div className="text-[1.5rem] md:text-[3rem]">Sign Up</div>
+        {registerErr && <div className="text-red-500 text-[1.5rem]">{registerErr}</div>}
         <input
           type="email"
           // name="email"
