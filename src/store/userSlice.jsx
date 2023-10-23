@@ -39,6 +39,7 @@ export const userSlice = createSlice({
       name: "sans-serif",
       style: "font-sans",
     },
+    logged: false
   },
   reducers: {
     setFont(state, { payload }) {
@@ -47,9 +48,13 @@ export const userSlice = createSlice({
     toggleTheme: (state) => {
       state.darkMode = !state.darkMode;
     },
-    setIsMobile() {
+    setIsMobile(state, action) {
       state.isMobile = action.payload;
     },
+    setLogged (state, {payload}) {
+      state.logged = payload
+    },
+    
   },
 });
 

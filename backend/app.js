@@ -32,11 +32,32 @@ app.use(passport.initialize());
 app.get("/", (req, res) => {
   res.send("Hello World. Backend is connected.");
 });
-
+app.get('/protectedroute', (req, res) => {
+  const token = req.headers["x-access-token"]
+  console.log(token)
+  if(!token) {
+    res.send('No token found.')
+  } else {
+    jwt.verify(token, JSON_SECRET, (err, decoded) => {
+      if(err) {
+        res.json({auth: false, message: 'You failed to authenticate'})
+      }else {
+        req.userId = decoded.id
+        res.json({auth: true, message: "Yeah, User is logged in."})
+      }
+    })
+  }
+})
 app.post("/login", async (req, res) => {
+    if (!req.body.username)
+      return res.send({
+        message: "You have not inputed your username.",
+      });
+    if (!req.body.password)
+      return res.send({ message: "Please enter your password." });
   const { username, password } = req.body;
   try {
-    const user = await User.findOne({ username }).exec();
+    const user = await User.findOne({ username }).exec();    
     if (user) {
       if (bcrypt.compareSync(password, user.password)) {
         const expirationTime = Math.floor(Date.now() / 1000) + 60 * 60 * 24;
@@ -45,13 +66,16 @@ app.post("/login", async (req, res) => {
           JSON_SECRET
         );
         console.log("Successful login");
-        console.log("token", token)
+        const openUser = {...user, password: ''}
+        // req.session?.user = openUser
         res.json({
           message: "Successful Login", token
         });
+      }else {
+        res.send({message: "Please enter the correct passowrd."})
       }
     } else {
-      res.send("User does not exist in database");
+      res.send({message: "User does not exist in database"});
     }
   } catch (err) {
     console.log(err);
