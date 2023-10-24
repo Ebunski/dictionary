@@ -1,16 +1,17 @@
 import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 import { Moon } from "react-feather";
-import { toggleTheme } from "../store/userSlice";
+import { toggleTheme, setLogged } from "../store/userSlice";
 import { TweenMax } from "gsap/gsap-core";
 import Fonts from "./Fonts";
 function Nav() {
   const dispatch = useDispatch();
   const purple = "hsl(275, 80%, 56%)";
   const purpleBg = "rgba(164,69,237,.25)";
-  const { darkMode } = useSelector((state) => state.user);
-  const [backtext, setBackText] = useState(null)
+  const { darkMode, logged } = useSelector((state) => state.user);
+  const [backtext, setBackText] = useState(null);
 
   const togglePill = useRef();
   const toggleIcon = useRef();
@@ -34,14 +35,21 @@ function Nav() {
       .then((res) => setBackText(res.data))
       .catch((err) => console.log(err));
   });
-
+  const logout = (e) => {
+    e.preventDefault();
+    localStorage.removeItem("token");
+    dispatch(setLogged(false));
+  };
   return (
     <nav className="flex items-center justify-between py-8 md:py-[3rem]">
       <img src="./assets/dictionary-logo.svg" alt="Book" />
+      <Link to='/privatepage'>Go to privatepage.</Link>
       <div className="options flex gap-4 items-center">
-        {
-          backtext && <div>{backtext}</div>
-        }
+        {logged && (
+          <button className="bg-white text-[black] rounded-sm" onClick={logout}>
+            Logout
+          </button>
+        )}
         <Fonts />
 
         <div className="flex gap-4 items-center">

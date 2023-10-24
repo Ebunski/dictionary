@@ -34,13 +34,13 @@ const SuggestionsList = () => {
       >
         {suggestions?.map((suggestion, index, arr) => (
           <React.Fragment key={index}>
-            <li onClick={() => handleSuggestionClick(suggestion.word)}>
+            <li className="cursor-default" onClick={() => handleSuggestionClick(suggestion.word)}>
               {suggestion.word}
             </li>
             {index != arr.length - 1 && (
               <div
                 className={`hl flex-1 border-t-[1px] ${
-                  darkMode ? "border-t-[#1f1f1f]" : "border-t-[#f4f4f4]"
+                  darkMode ? "border-t-[#1f1f1f]" : "border-t-[#f4f4f4] "
                 } my-4 mx-2`}
               ></div>
             )}
