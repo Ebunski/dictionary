@@ -40,6 +40,7 @@ export const userSlice = createSlice({
       style: "font-sans",
     },
     logged: "loading",
+    user: null,
   },
   reducers: {
     setFont(state, { payload }) {
@@ -54,9 +55,12 @@ export const userSlice = createSlice({
     setLogged(state, { payload }) {
       state.logged = payload;
     },
+    setUser (state, {payload}) {
+      state.user = payload
+    }
   },
 });
 
 export default userSlice.reducer;
-export const { toggleTheme, setFont, setIsMobile, setLogged } =
+export const { toggleTheme, setFont, setIsMobile, setLogged, setUser } =
   userSlice.actions;

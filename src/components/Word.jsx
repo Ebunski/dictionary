@@ -7,7 +7,6 @@ import Heart from "./Heart";
 function Word() {
   const { data, word, sound, meaningsArr, url } = useData();
 
-  
   const { font, isMobile } = useSelector((st) => st.user);
 
   return (

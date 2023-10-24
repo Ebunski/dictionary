@@ -8,7 +8,7 @@ import {
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { setIsMobile, setLogged } from "./store/userSlice";
+import { setIsMobile, setLogged, setUser } from "./store/userSlice";
 import Home from "./pages/Home";
 import Login from "./pages/login";
 import Signup from "./pages/Signup";
@@ -42,8 +42,8 @@ const App = () => {
           dispatch(setLogged(false));
           localStorage.removeItem("token");
         } else {
-          console.log("User is logged in.");
           dispatch(setLogged(true));
+          dispatch(setUser(res.data?.user))
         }
       } catch (err) {
         console.log(err);

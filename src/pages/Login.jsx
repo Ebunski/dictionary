@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import {useSelector, useDispatch} from 'react-redux';
 import { useNavigate } from "react-router-dom";
-import { setLogged } from "../store/userSlice";
+import { setLogged, setUser } from "../store/userSlice";
 import Cookies from "js-cookie";
 
 function Login() {
@@ -22,14 +22,17 @@ function Login() {
     try {
       const res = await axios.post("/api/login", { username, password });
       if (res.data?.message == "Successful Login") {
-        console.log(res.data, res.data?.token);
         localStorage.setItem("token", res.data?.token);
+        setLoginErr(null)
 
         // On Successful login, clear email and password fields.
-        setLoginErr(null)
         setEmail("");
         setPassword("");
+        
+
         dispatch(setLogged(true))
+        dispatch(setUser(res.data?.user))
+        console.log(res.data?.user)
         navigate("/");
       } else {
         console.log(res.data?.message)
