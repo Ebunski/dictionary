@@ -9,6 +9,7 @@ const appSlice = createSlice({
     search: "",
     suggestions: [],
     favourites: [],
+    isFavourite: false,
     data: welcome,
     isloading: false,
     isError: false,
@@ -40,13 +41,7 @@ const appSlice = createSlice({
       state.suggestionOpen = action.payload;
     },
     setFavourites(state, action) {
-      const word = action.payload;
-      let favourites = state.favourites;
-
-      if (word === favourites?.find((x) => x === word)) {
-        state.favourites = [];
-      }
-      favourites.push(action.payload);
+      state.favourites = action.payload
     },
   },
   extraReducers: (builder) => {

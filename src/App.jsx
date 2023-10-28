@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { setIsMobile, setLogged, setUser } from "./store/userSlice";
+import { setFavourites } from "./store/appSlice";
 import Home from "./pages/Home";
 import Login from "./pages/login";
 import Signup from "./pages/Signup";
@@ -17,7 +18,8 @@ import axios from "axios";
 import LoadingPage from "./pages/LoadingPage";
 
 const App = () => {
-  const { logged } = useSelector((state) => state.user);
+  const { logged, user } = useSelector((state) => state.user);
+  const { favourites } = useSelector((state) => state.app);
   const [routeIntended, setRouteIntended] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -51,6 +53,14 @@ const App = () => {
     };
     checkAuthenticated();
   }, []);
+  useEffect(() => {
+    console.log(user)
+    if(user) {
+      dispatch(setFavourites(user?.favorites))
+    } else {
+      dispatch(setFavourites([]))
+    }
+  }, [user])
   const CheckLoggedIn = ({ children }) => {
     if (logged == "loading") {
       <LoadingPage />;
