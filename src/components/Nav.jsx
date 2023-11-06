@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { Moon } from "react-feather";
 import { toggleTheme, setLogged } from "../store/userSlice";
+import History from "../components/History";
 import { TweenMax } from "gsap/gsap-core";
 import Fonts from "./Fonts";
 function Nav() {
@@ -50,6 +51,7 @@ function Nav() {
             Logout
           </button>
         )}
+        <History />
         <Fonts />
 
         <div className="flex gap-4 items-center">

@@ -10,8 +10,12 @@ router.put("/addtofavorites", async (req, res) => {
     const updateFavorites = () => {
       favorites.push(word);
       user.save();
-      console.log(user)
-      res.json({ status: "success", message: "Favourites updated.", favorites });
+      console.log(user);
+      res.json({
+        status: "success",
+        message: "Favourites updated.",
+        favorites,
+      });
     };
     if (favorites) {
       if (!favorites.includes(word)) {
@@ -51,6 +55,26 @@ router.put("/removefromfavorites", async (req, res) => {
         message: "The word is not a favourite.",
       });
     }
+  } catch (err) {
+    console.log(err);
+  }
+});
+router.post("/user/set-history", async (req, res) => {
+  const { userId, word } = req.body;
+  try {
+    const user = await User.findById(userId);
+    let userHistory = user._doc.history;
+    const addToHistory = () => userHistory.push(word);
+
+    if (!userHistory) {
+      userHistory = [];
+    }
+    addToHistory();
+    user.save()
+    res.json({
+      status: 'success',
+      history: userHistory
+    })
   } catch (err) {
     console.log(err);
   }

@@ -1,7 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchWordSuggestions, fetchMeaning } from "/src/utils/api";
+import { fetchWordSuggestions, fetchMeaning, passHistory} from "/src/utils/api";
 import welcome from "/src/utils/welcome";
 import { useState, useEffect } from "react";
+import { useDispatch } from "react-redux"; 
 
 const appSlice = createSlice({
   name: "app",
@@ -16,6 +17,7 @@ const appSlice = createSlice({
     isPlaying: false,
     showTooltip: false,
     suggestionOpen: false,
+    history: [],
   },
   reducers: {
     setInput(state, action) {
@@ -43,6 +45,9 @@ const appSlice = createSlice({
     setFavourites(state, action) {
       state.favourites = action.payload
     },
+    setHistory(state, {payload}) {
+      state.history = payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -53,14 +58,16 @@ const appSlice = createSlice({
       .addCase(fetchMeaning.fulfilled, (state, action) => {
         state.data = action.payload;
         state.isLoading = false;
-        console.log(action.payload);
       })
       .addCase(fetchMeaning.rejected, (state, action) => {
         state.data = [];
         state.isLoading = false;
         state.isError = true;
         console.log(action.error.message);
-      });
+      })
+      .addCase(passHistory.fulfilled, (state, action) => {
+        console.log(action.payload)
+      })
   },
 });
 
@@ -75,4 +82,5 @@ export const {
   setSuggestionOpen,
   setShowTooltip,
   setFavourites,
+  setHistory
 } = appSlice.actions;

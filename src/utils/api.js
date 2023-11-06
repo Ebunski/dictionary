@@ -1,6 +1,7 @@
 import axios from "axios";
+import { useSelector } from "react-redux";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { setSuggestions, setIsLoading,} from "/src/store/appSlice";
+import { setSuggestions, setIsLoading } from "/src/store/appSlice";
 
 const sugApiUrl = "https://api.datamuse.com/sug";
 const dictionaryApiUrl = "https://api.dictionaryapi.dev/api/v2/entries/en/";
@@ -19,7 +20,7 @@ export const fetchWordSuggestions = (term) => async (dispatch) => {
   dispatch(setIsLoading(true));
   try {
     const response = await axios.get(`${sugApiUrl}?s=${term}`);
-    
+
     const sortedSuggestions = response.data.sort(alphabetically);
 
     dispatch(setSuggestions(sortedSuggestions));
@@ -48,3 +49,15 @@ export const fetchMeaning = createAsyncThunk(
     return response.data;
   }
 );
+export const passHistory = createAsyncThunk("app/passHistory", async (word, user) => {
+  console.log('Six paths')
+  try {
+      const response = await axios.post("/api/user/set-history", {
+        userId: user._id,
+        word,
+      });
+      return response.data?.history;
+  } catch (err) {
+    console.log(err);
+  }
+});
