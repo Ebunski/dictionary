@@ -2,10 +2,11 @@ import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { Moon } from "react-feather";
+import { ArrowDown, Moon } from "react-feather";
 import { toggleTheme, setLogged } from "../store/userSlice";
-import History from "../components/History";
+import History from "./History";
 import { TweenMax } from "gsap/gsap-core";
+import { FaAngleDown } from "react-icons/fa";
 import Fonts from "./Fonts";
 function Nav() {
   const dispatch = useDispatch();
@@ -44,14 +45,25 @@ function Nav() {
   return (
     <nav className="flex items-center justify-between py-8 md:py-[3rem]">
       <img src="./assets/dictionary-logo.svg" alt="Book" />
-      <Link to='/privatepage'>Go to privatepage.</Link>
       <div className="options flex gap-4 items-center">
-        {logged && (
-          <button className="bg-white text-[black] rounded-sm" onClick={logout}>
+        {logged ? (
+          <button
+            className={`bg-none border-solid border-[1px] px-4 py-2 rounded-[.5rem] ${darkMode ? 'border-white' : 'border-[black]'}`}
+            onClick={logout}
+          >
             Logout
           </button>
+        ) : (
+          <Link
+            to="/login"
+            className={`bg-none border-solid border-[1px] text-white px-4 py-2 rounded-[.5rem] ${darkMode ? 'border-white' : 'border-[black]'}`}
+          >
+            Login
+          </Link>
         )}
-        <History />
+        {logged && (
+          <History />
+        )}
         <Fonts />
 
         <div className="flex gap-4 items-center">

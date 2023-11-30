@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { setIsMobile, setLogged, setUser } from "./store/userSlice";
-import { setFavourites } from "./store/appSlice";
+import { setFavourites, setHistory } from "./store/appSlice";
 import Home from "./pages/Home";
 import Login from "./pages/login";
 import Signup from "./pages/Signup";
@@ -56,9 +56,12 @@ const App = () => {
   useEffect(() => {
     console.log(user)
     if(user) {
+      console.log(user?.history)
       dispatch(setFavourites(user?.favorites))
+      dispatch(setHistory(user?.history))
     } else {
       dispatch(setFavourites([]))
+      dispatch(setHistory([]))
     }
   }, [user])
   const CheckLoggedIn = ({ children }) => {

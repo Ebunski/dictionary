@@ -7,7 +7,6 @@ export default function Fonts() {
     handleDropdown,
     toggleAccordion,
     changeFont,
-
     fontMenuRef,
     expandRef,
   } = useFontLogic();
@@ -22,7 +21,7 @@ export default function Fonts() {
 
       <ul
         ref={fontMenuRef}
-        className={`w-full absolute top-[100%] z-10 flex flex-col py-3 px-5 ${background} border border-[#9e35e9] border-2 opacity-0 pointer-events-none transform translate-x-[-50%]`}
+        className={`w-full absolute top-[100%] z-10 flex flex-col py-3 px-5 ${background} border-[#9e35e9] border-2 opacity-0 pointer-events-none transform translate-x-[-50%]`}
       >
         {fontsList.map((x, index) => (
           <li

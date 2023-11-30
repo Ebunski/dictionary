@@ -1,16 +1,14 @@
 import { useSelector, useDispatch } from "react-redux";
+import axios from "axios";
 import { useEffect } from "react";
 import { passHistory } from "../utils/api";
+import { setMeaningRes } from "../store/appSlice";
 export default function useData() {
   const {user, logged} = useSelector(st => st.user)
   const dispatch = useDispatch();
   const response = useSelector((state) => state.app.data);
-  useEffect(() => {
-    if (response.length && user && logged) {
-      console.log(user)
-      dispatch(passHistory(response[0].word, user));
-    }
-  }, [response]);
+
+ 
 
   const data = response ? response[0] : [];
   const word = data?.word;

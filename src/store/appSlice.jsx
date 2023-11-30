@@ -1,8 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchWordSuggestions, fetchMeaning, passHistory} from "/src/utils/api";
+import { fetchWordSuggestions, fetchMeaning} from "/src/utils/api";
 import welcome from "/src/utils/welcome";
 import { useState, useEffect } from "react";
-import { useDispatch } from "react-redux"; 
 
 const appSlice = createSlice({
   name: "app",
@@ -12,6 +11,7 @@ const appSlice = createSlice({
     favourites: [],
     isFavourite: false,
     data: welcome,
+    meaningRes: {},
     isloading: false,
     isError: false,
     isPlaying: false,
@@ -26,7 +26,6 @@ const appSlice = createSlice({
     setSuggestions(state, action) {
       state.suggestions = action.payload;
     },
-
     setData(state, action) {
       state.data = action.payload;
     },
@@ -48,6 +47,9 @@ const appSlice = createSlice({
     setHistory(state, {payload}) {
       state.history = payload;
     },
+    setMeaningRes(state, {payload}) {
+      state.meaningRes = payload;
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -56,7 +58,10 @@ const appSlice = createSlice({
         state.isError = false;
       })
       .addCase(fetchMeaning.fulfilled, (state, action) => {
-        state.data = action.payload;
+        const response =  action.payload;
+        const data = response[0]
+        state.data = response;
+        state.meaningRes = data;
         state.isLoading = false;
       })
       .addCase(fetchMeaning.rejected, (state, action) => {
@@ -65,9 +70,7 @@ const appSlice = createSlice({
         state.isError = true;
         console.log(action.error.message);
       })
-      .addCase(passHistory.fulfilled, (state, action) => {
-        console.log(action.payload)
-      })
+      
   },
 });
 
@@ -82,5 +85,6 @@ export const {
   setSuggestionOpen,
   setShowTooltip,
   setFavourites,
-  setHistory
+  setHistory,
+  setMeaningRes
 } = appSlice.actions;

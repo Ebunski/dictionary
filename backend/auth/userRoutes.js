@@ -64,17 +64,24 @@ router.post("/user/set-history", async (req, res) => {
   try {
     const user = await User.findById(userId);
     let userHistory = user._doc.history;
-    const addToHistory = () => userHistory.push(word);
 
-    if (!userHistory) {
-      userHistory = [];
-    }
-    addToHistory();
-    user.save()
+    const addToHistory = () => {
+      if (!userHistory) {
+        userHistory = [];
+      }
+      userHistory.unshift(word);
+      userHistory = userHistory.slice(0, 10);
+      console.log(userHistory);
+      return userHistory;
+    };
+    const updatedHistory = addToHistory();
+    user._doc.history = updatedHistory;
+
+    await user.save();
     res.json({
-      status: 'success',
-      history: userHistory
-    })
+      status: "success",
+      history: updatedHistory,
+    });
   } catch (err) {
     console.log(err);
   }
