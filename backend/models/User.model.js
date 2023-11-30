@@ -11,7 +11,15 @@ const UserSchema = new mongoose.Schema({
     },
     username: {
         type: String
-    }
+    },
+    favorites: {
+        type: Array,
+        default: []
+    },
+    history: {
+        type: Array,
+        default: []
+    },
 })
 
 const User = mongoose.model('User', UserSchema);

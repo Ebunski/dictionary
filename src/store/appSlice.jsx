@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchWordSuggestions, fetchMeaning } from "/src/utils/api";
+import { fetchWordSuggestions, fetchMeaning} from "/src/utils/api";
 import welcome from "/src/utils/welcome";
 import { useState, useEffect } from "react";
 
@@ -9,12 +9,15 @@ const appSlice = createSlice({
     search: "",
     suggestions: [],
     favourites: [],
+    isFavourite: false,
     data: welcome,
+    meaningRes: {},
     isloading: false,
     isError: false,
     isPlaying: false,
     showTooltip: false,
     suggestionOpen: false,
+    history: [],
   },
   reducers: {
     setInput(state, action) {
@@ -23,7 +26,6 @@ const appSlice = createSlice({
     setSuggestions(state, action) {
       state.suggestions = action.payload;
     },
-
     setData(state, action) {
       state.data = action.payload;
     },
@@ -40,14 +42,14 @@ const appSlice = createSlice({
       state.suggestionOpen = action.payload;
     },
     setFavourites(state, action) {
-      const word = action.payload;
-      let favourites = state.favourites;
-
-      if (word === favourites?.find((x) => x === word)) {
-        state.favourites = [];
-      }
-      favourites.push(action.payload);
+      state.favourites = action.payload
     },
+    setHistory(state, {payload}) {
+      state.history = payload;
+    },
+    setMeaningRes(state, {payload}) {
+      state.meaningRes = payload;
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -56,16 +58,19 @@ const appSlice = createSlice({
         state.isError = false;
       })
       .addCase(fetchMeaning.fulfilled, (state, action) => {
-        state.data = action.payload;
+        const response =  action.payload;
+        const data = response[0]
+        state.data = response;
+        state.meaningRes = data;
         state.isLoading = false;
-        console.log(action.payload);
       })
       .addCase(fetchMeaning.rejected, (state, action) => {
         state.data = [];
         state.isLoading = false;
         state.isError = true;
         console.log(action.error.message);
-      });
+      })
+      
   },
 });
 
@@ -80,4 +85,6 @@ export const {
   setSuggestionOpen,
   setShowTooltip,
   setFavourites,
+  setHistory,
+  setMeaningRes
 } = appSlice.actions;
