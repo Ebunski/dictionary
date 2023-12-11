@@ -23,6 +23,7 @@ function Nav() {
   const toggleIcon = useRef();
   const menuOpenIcon = useRef();
   const menuCloseIcon = useRef();
+  const menuDropdown = useRef();
 
   function handleThemeChange(e) {
     let el = e.target;
@@ -53,7 +54,6 @@ function Nav() {
     setMenuOpen(!menuOpen);
   };
   useEffect(() => {
-    console.log(menuOpen);
     if (!menuOpen) {
       const timeline = new TimelineMax();
       timeline.to(menuOpenIcon.current, { display: "block" });
@@ -75,11 +75,48 @@ function Nav() {
       );
     }
   }, [menuOpen]);
+
+  // Clickout for mobile menu.
+  // useEffect(() => {
+  //   const handleClickOutside = (event) => {
+  //     console.log("Clickout is actually called.");
+  //     if (
+  //       menuDropdown.current &&
+  //       !menuDropdown.current.contains(event.target)
+  //     ) {
+  //       setMenuOpen(false);
+  //     }
+  //   };
+  //   document.addEventListener("çlick", () => console.log());
+  //   return () => {
+  //     document.removeEventListener("click", handleClickOutside);
+  //   };
+  // }, []);
+
+  useEffect(() => {
+    const handleClickout = (event) => {
+      if (menuOpen) {
+        if (
+          menuDropdown.current &&
+          !menuDropdown.current.contains(event.target) &&
+          !menuOpenIcon.current.contains(event.target)
+        ) {
+          setMenuOpen(false);
+        }
+      }
+    };
+    document.addEventListener("click", handleClickout);
+    return () => {
+      document.removeEventListener('çlick', handleClickout)
+    }
+  }, [menuOpen]);
+
   return (
     <>
       <nav className="relative flex items-center justify-between py-8 md:py-[3rem]">
         {isMobile && (
           <MenuMobile
+            menuDropdown={menuDropdown}
             menuOpen={menuOpen}
             setMenuOpen={setMenuOpen}
             logout={logout}

@@ -8,6 +8,7 @@ import useMobileMenuLogic from "./useMobileMenuLogic";
 import useFontLogic from "../hooks/useFontLogic";
 
 function MenuMobile({
+  menuDropdown,
   menuOpen,
   setMenuOpen,
   logout,
@@ -18,24 +19,9 @@ function MenuMobile({
   const navigate = useNavigate();
   const { darkMode, theme, logged } = useSelector((st) => st.user);
   const mode = darkMode ? theme.dark : theme.light;
-  const menuDropdown = useRef();
   const purple = "hsl(275, 80%, 56%)";
 
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      console.log('function is actually called.')
-      if (
-        menuDropdown.current &&
-        !menuDropdown.current.contains(event.target)
-      ) {
-        setMenuOpen(false);
-      }
-    };
-    document.addEventListener("çlick", handleClickOutside);
-    return () => {
-      document.removeEventListener("click", handleClickOutside);
-    };
-  }, []);
+ 
 
   const dropDownAnimate = () => {
     const menu = menuDropdown.current;
