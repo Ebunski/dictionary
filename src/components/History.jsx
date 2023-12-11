@@ -53,27 +53,6 @@ function History() {
       timeline.play();
     }
 
-    // const tl = gsap.timeline();
-
-    // tl.to(icon, {
-    //   rotation: dropOpen ? 0 : 180,
-    //   duration: 0.5,
-    // });
-
-    // tl.to(
-    //   menu,
-    //   {
-    //     x: dropOpen ? 0 : 50,
-    //     opacity: dropOpen ? 0 : 1,
-    //     pointerEvents: dropOpen ? "none" : "auto",
-    //     duration: 0.3,
-    //   },
-    //   "-=0.4"
-    // );
-    // // tl.to(menu, {
-    // //   display: dropOpen ? "block" : "none",
-    // // });
-    // tl.kill();
   };
   useEffect(() => {
     dropDownAnimate();
